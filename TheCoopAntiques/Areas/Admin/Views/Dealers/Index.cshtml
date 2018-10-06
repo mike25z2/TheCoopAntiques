@@ -1,0 +1,78 @@
+﻿@model IEnumerable<TheCoopAntiques.Models.Dealers>
+@{
+    ViewData["Title"] = "Index";
+}
+<br />
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">Maintain Dealers</h2>
+    </div>
+    <div class="col-6 text-right">
+        <a asp-action="Create" class="btn btn-info">
+            <i class="fas fa-plus"></i>&nbsp; Add Dealer
+        </a>
+    </div>
+</div>
+<br />
+<div class="row">
+    <table class="table table-striped table-hover border">
+        <tr class="table-info">
+            <th>
+                @Html.DisplayNameFor(d => d.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(d => d.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(d => d.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(d => d.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(d => d.PhoneNumber)
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            if(item.Name == "None")
+             {
+                 continue;
+             }
+            <tr>
+                <td>
+                    @Html.DisplayFor(d => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(d => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(d => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(d => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(d => item.PhoneNumber)
+                </td>
+                <td>
+                    @if (item.Disabled)
+                    {
+                        <span class="badge badge-danger">DISABLED</span>
+                    }
+                </td>
+                <td>
+                    <partial name="_TableButtonPartial" model="item.Id" />
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

@@ -1,0 +1,65 @@
+﻿@model TheCoopAntiques.Models.ViewModel.ItemsViewModel
+@using TheCoopAntiques.Extensions
+@{
+    ViewData["Title"] = "Create";
+    ViewData["Controller"] = "Items";
+}
+<br />
+<div class="row">
+    <div class="col-9">
+        <h2 class="text-info">Add New Item for Order Number &nbsp;@ViewBag.Order.InvoiceNumber</h2>
+    </div>
+    <div class="col-3 text-left">
+        <a class="btn btn-primary btn-block" asp-Controller="Orders" asp-action="Details" asp-route-id="@ViewBag.Order.Id">Back to Order Details</a>
+    </div>
+</div>
+<div class="row">
+    <div class="offset-9"></div>
+    <div class="col-3 text-left">
+        <a class="btn btn-info btn-block" asp-Controller="Orders" asp-action="Create" >New Order</a>
+    </div>
+</div>
+<br />
+<form method="post" asp-action-for="Create" asp-controller="Items">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" name="OrderId" value="@ViewBag.Order.Id" />
+    <div class="form-group row">
+        <div class="col-2">
+            @Html.DisplayNameFor(i => @Model.Items.Dealers.Name)
+        </div>
+        <div class="col-5">
+            @Html.DisplayNameFor(i => @Model.Items.Description)
+        </div>
+        <div class="col-2">
+            @Html.DisplayNameFor(i => @Model.Items.Amount)
+        </div>
+        <div class="col-2">
+            @Html.DisplayNameFor(i => @Model.Items.TaxExempt)
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-2">
+            <select asp-for="@Model.Items.DealerId" asp-items="@Model.Dealers.ToSelectListItem(Model.Items.DealerId)" class="form-control"></select>
+        </div>
+        <div class="col-5">
+            <input asp-for="@Model.Items.Description" class="form-control" />
+            <span asp-validation-for="@Model.Items.Description" class="text-danger"></span>
+        </div>
+        <div class="col-2">
+            <input asp-for="@Model.Items.Amount" class="form-control" />
+            <span asp-validation-for="@Model.Items.Amount" class="text-danger"></span>
+        </div>
+        <div class="col-1">
+            <input asp-for="@Model.Items.TaxExempt" type="checkbox" class="form-control" />
+        </div>
+        <div class="col-2">
+            <button type="submit" class="btn btn-success" asp-route-orderId="OrderId">
+                <i class="fas fa-plus"></i>&nbsp; Add Item
+            </button>
+        </div>
+    </div>
+</form>
+<partial name="_ItemDetailsPartial" model="@ViewBag.OrdersVM"/>
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

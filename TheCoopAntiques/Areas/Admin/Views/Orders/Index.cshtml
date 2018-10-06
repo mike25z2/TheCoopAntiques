@@ -1,0 +1,62 @@
+﻿@model IEnumerable<TheCoopAntiques.Models.Orders>
+@{
+    ViewData["Title"] = "Index";
+}
+<br />
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">Orders Overview</h2>
+    </div>
+    <div class="col-6 text-right">
+        <a asp-action="Create" class="btn btn-info">
+            <i class="fas fa-plus"></i>&nbsp; New Order
+        </a>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-12">
+        <table class="table table-striped border table-hover table-sm">
+            <tr class="table-info">
+                <th>
+                    @Html.DisplayNameFor(o => o.OrderDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(o => o.InvoiceNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(o => o.TransactionTypes)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(o => o.DealerId)
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(i => item.OrderDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(i => item.InvoiceNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(i => item.TransactionTypes.Name)
+                </td>
+                <td>
+                    @if (item.Dealers.Name != "None")
+                    {
+                        @Html.DisplayFor(i => item.Dealers.Name)
+                    }
+                </td>
+                <td>
+                    <partial name="_TableButtonPartial" model="@item.Id" />
+                </td>
+            </tr>
+            }
+        </table>
+    </div>
+    
+</div>

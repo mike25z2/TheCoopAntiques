@@ -1,0 +1,109 @@
+﻿@using Microsoft.AspNetCore.Http
+@model TheCoopAntiques.Models.ViewModel.OrdersViewModel
+<br />
+<br />
+<table class="table table-hover table-striped border">
+    <tr class="table-info">
+        <th>
+            Dealer ID
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Amount
+            @{ decimal subTotal = 0M;}
+            @{ decimal tax = 0M;}
+            @{ decimal grandTotal = 0M;}
+        </th>
+        <th>
+            Exempt
+        </th>
+        <th>
+
+        </th>
+
+    </tr>
+
+    @foreach (var item in @Model.Items)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(i => item.Dealers.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(i => item.Description)
+            </td>
+            <td>
+                @String.Format("{0:c}", item.Amount)
+                @{ subTotal += item.Amount;}
+            </td>
+            <td>
+                @if (item.TaxExempt)
+                {
+                    <h4>
+                        <span class="badge badge-warning">Tax Exempt</span>
+                    </h4>
+                }
+                else
+                {
+                    tax += (item.Amount * @Model.Orders.TaxRate);
+                }
+            </td>
+
+            <td class="text-right btn btn-group" role="group">
+                @if ((string)ViewData["Title"] != "Details")
+                {
+
+                    <div>
+                        <a asp-action="Edit" class="btn btn-success" asp-controller="Items" asp-route-id="@item.Id" asp-route-viewId="@ViewData["Title"]" asp-route-controllerId="@ViewData["Controller"]">
+                            <i class="fas fa-pencil-alt"></i>
+                        </a>
+                        <a asp-action="Delete" class="btn btn-danger" asp-controller="Items" asp-route-id="@item.Id" asp-route-viewId="@ViewData["Title"]" asp-route-controllerId="@ViewData["Controller"]">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </div>
+                }
+            </td>
+        </tr>
+    }
+    
+    <tr style="border-top: 2px solid; background-color: cornsilk; ">
+        <td></td>
+        <td class="text-right ">
+            Sub Total:
+        </td>
+        <td >
+            @subTotal.ToString("c")
+        </td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr style="background-color: cornsilk;">
+        <td></td>
+        <td class="text-right">
+            Tax:
+        </td>
+        <td >
+            @tax.ToString("c")
+        </td>
+        <td>
+            Tax Rate: &nbsp;
+            @Model.Orders.TaxRate.ToString("#.00%")
+        </td>
+        <td></td>
+    </tr>
+    <tr style="background-color: cornsilk;">
+        <td></td>
+        <td class="text-right">
+            Order Total:
+        </td>
+        <td style="font-weight: bold;">
+            @{ grandTotal = subTotal + tax;}
+            @grandTotal.ToString("C")
+        </td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>
+
