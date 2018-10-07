@@ -37,8 +37,10 @@ namespace TheCoopAntiques
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultUI()
+                .AddDefaultTokenProviders();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
@@ -67,7 +69,7 @@ namespace TheCoopAntiques
             {
                 routes.MapRoute(
                     name: "areas",
-                    template: "{area=Dealer}/{controller=Home}/{action=Index}/{id?}"
+                    template: "{area=Default}/{controller=Home}/{action=Index}/{id?}"
                 );
             });
         }

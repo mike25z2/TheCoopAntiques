@@ -8,60 +8,55 @@
 <br />
 <h2 class="text-info">Order Details</h2>
 <br />
-
-<div class="p-4 border rounded col-6">
-    <div class="form-group row">
-        <div class="col-6">
-            <label asp-for="Orders.InvoiceNumber"></label>
+<div class="row">
+    <div class="col-6">
+        <div class="p-4 border rounded col-12">
+            <div class="form-group row">
+                <div class="col-6">
+                    <label asp-for="Orders.InvoiceNumber"></label>
+                </div>
+                <div class="col-6">
+                    <input type="text" asp-for="Orders.InvoiceNumber" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-6">
+                    <label asp-for="Orders.OrderDate"></label>
+                </div>
+                <div class="col-6">
+                    <input type="text" asp-for="Orders.OrderDate" readonly class="form-control" asp-format="{0:MM/dd/yy}" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-6">
+                    <label asp-for="TransactionTypes"></label>
+                </div>
+                <div class="col-6">
+                    <input type="text" asp-for="Orders.TransactionTypes.Name" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-6">
+                    <label asp-for="Dealers"></label>
+                </div>
+                <div class="col-6">
+                    <input type="text" asp-for="Orders.Dealers.Name" readonly class="form-control" />
+                </div>
+            </div>
         </div>
-        <div class="col-6">
-            <input type="text" asp-for="Orders.InvoiceNumber" readonly class="form-control" />
-        </div>
-
     </div>
-    <div class="form-group row">
-        <div class="col-6">
-            <label asp-for="Orders.OrderDate"></label>
-        </div>
-        <div class="col-6">
-            <input type="text" asp-for="Orders.OrderDate" readonly class="form-control" />
-        </div>
-
-    </div>
-    <div class="form-group row">
-        <div class="col-6">
-            <label asp-for="TransactionTypes"></label>
-        </div>
-        <div class="col-6">
-            <input type="text" asp-for="Orders.TransactionTypes.Name" readonly class="form-control" />
-        </div>
-
-    </div>
-    <div class="form-group row">
-        <div class="col-6">
-            <label asp-for="Dealers"></label>
-        </div>
-        <div class="col-6">
-            <input type="text" asp-for="Orders.Dealers.Name" readonly class="form-control" />
-        </div>
-    </div>
-    <div class="form-group row">
+    <div class="col-6">
         <div class="col-6">
             <a asp-action="Index" class="btn btn-primary btn-block">Return to Orders Overview</a>
-        </div>
-        <div class="col-6">
             <a asp-action="Edit" class="btn btn-success btn-block" asp-route-id="@Model.Orders.Id">Edit</a>
+            <a asp-action="Delete" class="btn btn-danger btn-block" asp-route-id="@Model.Orders.Id">Delete</a>
         </div>
     </div>
 </div>
 <br />
+<br />
 <div class="row">
-    <div class="col-10">
 
-    </div>
-    <div class="col-2 text-right">
-        
-    </div>
 </div>
 
 <partial name="_ItemDetailsPartial" model="@Model" />

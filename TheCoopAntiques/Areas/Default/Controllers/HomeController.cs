@@ -8,7 +8,7 @@ using TheCoopAntiques.Models;
 
 namespace TheCoopAntiques.Controllers
 {
-    [Area("Dealer")]
+    [Area("Default")]
     public class HomeController : Controller
     {
         public IActionResult Index()

@@ -19,5 +19,7 @@ namespace TheCoopAntiques.Data
         public DbSet<TaxRates> TaxRates { get; set; }
         public DbSet<Orders> Orders { get; set; }
         public DbSet<Items> Items { get; set; }
+        public DbSet<Periods> Periods { get; set; }
+        public DbSet<ApplicationUser> ApplicationUser { get; set; }
     }
 }

@@ -16,7 +16,7 @@ namespace TheCoopAntiques.Models
 
         [Required]
         [Display(Name="Order ID")]
-        public int InvoiceNumber { get; set; }
+        public string InvoiceNumber { get; set; }
 
         [Required]
         [Display(Name = "Order Date")]

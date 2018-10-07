@@ -21,7 +21,7 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            return View(_db.Dealers.ToList());
+            return View(_db.Dealers.OrderBy(d=>d.Name).ToList());
         }
 
         //GET CREATE

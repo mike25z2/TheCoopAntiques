@@ -38,7 +38,6 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
         // GET CREATE
         public IActionResult Create()
         {
-            OrdersVM.Orders.OrderDate = DateTime.Today;
             OrdersVM.Orders.DealerId =  _db.Dealers.First(d => d.Name == "None").Id;
             return View(OrdersVM);
         }
@@ -49,6 +48,7 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
         public async Task<IActionResult> CreatePOST()
         {
             if (!ModelState.IsValid) return View(OrdersVM);
+            OrdersVM.Orders.InvoiceNumber= OrdersVM.Orders.InvoiceNumber.PadLeft(8, '0');
             _db.Orders.Add(OrdersVM.Orders);
             await _db.SaveChangesAsync();
             return RedirectToAction("Edit", new {id = OrdersVM.Orders.Id});
@@ -85,12 +85,24 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
             if (!ModelState.IsValid) return View();
             var OrderFromDb = _db.Orders.FirstOrDefault(m => m.Id == OrdersVM.Orders.Id);
             if (OrderFromDb == null) return View();
-            OrderFromDb.InvoiceNumber = OrdersVM.Orders.InvoiceNumber;
+            OrderFromDb.InvoiceNumber = OrdersVM.Orders.InvoiceNumber.PadLeft(8, '0');
             OrderFromDb.OrderDate = OrdersVM.Orders.OrderDate;
             OrderFromDb.TransactionTypeId = OrdersVM.Orders.TransactionTypeId;
             OrderFromDb.DealerId = OrdersVM.Orders.DealerId;
             await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        //GET DELETE
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null) return NotFound();
+            OrdersVM.Orders = await _db.Orders.Include(m => m.TransactionTypes).Include(m => m.Dealers)
+                .SingleOrDefaultAsync(m => m.Id == id);
+            ViewBag.Items = OrdersVM.Items;
+            if (OrdersVM.Orders == null) return NotFound();
+            return View(OrdersVM);
+        }
+
     }
 }

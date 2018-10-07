@@ -70,6 +70,38 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
             return RedirectToAction("Create", "Items", new {orderId});
         }
 
+        //GET EDIT
+        //id is coming in as itemId
+        public async Task<IActionResult> Edit(int? orderId, int? id, string viewId, string controllerId)
+        {
+            if (orderId == null) return NotFound();
+            Orders GetOrder = _db.Orders.Single(o => o.Id == orderId);
+            if (GetOrder == null) return NotFound();
+            ViewBag.Order = GetOrder;
+            ItemsVM.Items = await _db.Items.Include(i => i.Dealers).SingleOrDefaultAsync(i => i.Id == id);
+            OrdersVM.Orders = await _db.Orders.Include(m => m.TransactionTypes).Include(m => m.Dealers)
+                .SingleOrDefaultAsync(m => m.Id == orderId);
+            ViewBag.OrdersVM = OrdersVM;
+            return View(ItemsVM);
+        }
+
+        //POST EDIT
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, int orderId)
+        {
+            if (!ModelState.IsValid) return View(ItemsVM);
+            var itemFromDb = await _db.Items.FirstOrDefaultAsync(m => m.Id == ItemsVM.Items.Id);
+            if (itemFromDb == null) return View(ItemsVM);
+            itemFromDb.DealerId = ItemsVM.Items.DealerId;
+            itemFromDb.Description = ItemsVM.Items.Description;
+            itemFromDb.Amount = ItemsVM.Items.Amount;
+            itemFromDb.TaxExempt = ItemsVM.Items.TaxExempt;
+            await _db.SaveChangesAsync();
+
+            return RedirectToAction("Edit", "Orders", new {id = orderId});
+        }
+
         //GET DELETE
         //id is coming in as Item.Id
         public async Task<IActionResult> Delete(int id, string viewId, string controllerId)

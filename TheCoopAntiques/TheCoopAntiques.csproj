@@ -11,6 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Dealer\Controllers\" />
+    <Folder Include="Areas\Dealer\Data\" />
+    <Folder Include="Areas\Dealer\Models\" />
+    <Folder Include="Areas\Dealer\Views\" />
+    <Folder Include="Areas\Identity\Services\" />
     <Folder Include="Controllers\" />
   </ItemGroup>
 

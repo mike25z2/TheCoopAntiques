@@ -73,6 +73,9 @@ namespace TheCoopAntiques.Data.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
@@ -112,6 +115,8 @@ namespace TheCoopAntiques.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -136,11 +141,9 @@ namespace TheCoopAntiques.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128);
+                    b.Property<string>("LoginProvider");
 
-                    b.Property<string>("ProviderKey")
-                        .HasMaxLength(128);
+                    b.Property<string>("ProviderKey");
 
                     b.Property<string>("ProviderDisplayName");
 
@@ -171,11 +174,9 @@ namespace TheCoopAntiques.Data.Migrations
                 {
                     b.Property<string>("UserId");
 
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128);
+                    b.Property<string>("LoginProvider");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(128);
+                    b.Property<string>("Name");
 
                     b.Property<string>("Value");
 
@@ -255,7 +256,8 @@ namespace TheCoopAntiques.Data.Migrations
 
                     b.Property<int>("DealerId");
 
-                    b.Property<int>("InvoiceNumber");
+                    b.Property<string>("InvoiceNumber")
+                        .IsRequired();
 
                     b.Property<DateTime>("OrderDate");
 
@@ -270,6 +272,27 @@ namespace TheCoopAntiques.Data.Migrations
                     b.HasIndex("TransactionTypeId");
 
                     b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("TheCoopAntiques.Models.Periods", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("EndDate");
+
+                    b.Property<int>("MonthInt");
+
+                    b.Property<string>("PeriodType");
+
+                    b.Property<DateTime>("StartDate");
+
+                    b.Property<int>("YearInt");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Periods");
                 });
 
             modelBuilder.Entity("TheCoopAntiques.Models.TaxRates", b =>
@@ -307,6 +330,23 @@ namespace TheCoopAntiques.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TransactionTypes");
+                });
+
+            modelBuilder.Entity("TheCoopAntiques.Models.ApplicationUser", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<int>("DealerId");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
+                    b.HasIndex("DealerId");
+
+                    b.ToTable("ApplicationUser");
+
+                    b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -377,6 +417,14 @@ namespace TheCoopAntiques.Data.Migrations
                     b.HasOne("TheCoopAntiques.Models.TransactionTypes", "TransactionTypes")
                         .WithMany()
                         .HasForeignKey("TransactionTypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("TheCoopAntiques.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("TheCoopAntiques.Models.Dealers", "Dealers")
+                        .WithMany()
+                        .HasForeignKey("DealerId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
