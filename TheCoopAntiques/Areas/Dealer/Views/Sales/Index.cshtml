@@ -1,0 +1,54 @@
+﻿@model IEnumerable<TheCoopAntiques.Models.Items>
+@{
+    ViewData["Title"] = "Index";
+}
+<br />
+<div class="row">
+    <div class="col-4">
+        <h2 class="text-info">Sales</h2>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-9">
+        <table class="table table-striped border table-hover">
+            <tr class="table-info">
+                <th>
+                    @Html.DisplayNameFor(i => i.Orders.OrderDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(i => i.Orders.InvoiceNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(i => i.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(i => i.Amount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(i => i.Orders.TransactionTypes.Name)
+                </th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(i => item.Orders.OrderDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(i => item.Orders.InvoiceNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(i => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(i => item.Amount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(i => item.Orders.TransactionTypes.Name)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

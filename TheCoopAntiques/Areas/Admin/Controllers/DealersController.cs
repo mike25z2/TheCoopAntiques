@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TheCoopAntiques.Data;
 using TheCoopAntiques.Models;
+using TheCoopAntiques.Utility;
 
 
 namespace TheCoopAntiques.Areas.Admin.Controllers
 {
+    [Authorize(Roles = SD.AdminUser + "," + SD.Owner)]
     [Area("Admin")]
     public class DealersController : Controller
     {
@@ -36,6 +39,7 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
         public async Task<IActionResult> Create(Dealers dealers)
         {
             if (!ModelState.IsValid) return View();
+            dealers.Name = dealers.Name.ToUpper();
             _db.Add(dealers);
             await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -56,6 +60,7 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(int id, Dealers dealers)
         {
             if (!ModelState.IsValid) return View();
+            dealers.Name = dealers.Name.ToUpper();
             _db.Update(dealers);
             await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

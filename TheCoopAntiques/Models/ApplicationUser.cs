@@ -18,13 +18,13 @@ namespace TheCoopAntiques.Models
 
         [Required(AllowEmptyStrings = true)]
         [DisplayFormat(ConvertEmptyStringToNull = false)]
-        [Display(Name="Dealer Id")]
+        [Display(Name="Primary Dealer Id")]
         public int DealerId { get; set; }
 
         [ForeignKey("DealerId")]
         public virtual Dealers Dealers { get; set; }
 
         [NotMapped]
-        public string AccessLevel { get; set; }
+        public string Role { get; set; }
     }
 }

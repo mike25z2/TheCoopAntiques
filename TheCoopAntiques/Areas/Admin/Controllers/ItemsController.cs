@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Operations;
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore;
 using TheCoopAntiques.Data;
 using TheCoopAntiques.Models;
 using TheCoopAntiques.Models.ViewModel;
+using TheCoopAntiques.Utility;
 
 namespace TheCoopAntiques.Areas.Admin.Controllers
 {
+    [Authorize(Roles = SD.AdminUser + "," + SD.Owner + "," + SD.Volunteer)]
     [Area("Admin")]
     public class ItemsController : Controller
     {

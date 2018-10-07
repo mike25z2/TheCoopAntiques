@@ -42,44 +42,46 @@
                 <input asp-for="Input.ConfirmPassword" class="form-control" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-default btn-success" asp-route-role ="Role">Register</button>
-
         </div>
         <div class="col-1"></div>
-        <div class="col-7 border rounded p-4">
-            <h4 class="text-center">Assign Access Level</h4>
+        <div class="col-7 border p-4" style="background-color:lightgoldenrodyellow; border-radius: 12px;">
+            <h4 class="text-center" >Assign Access Level</h4>
             <h5>
-                <div >
-                    <div class="radio">
-                        <label><input type="radio" asp-for="Input.Role" name="Role" value="Admin">&nbsp; Admin</label>
-                        <p style="font-size: 1rem; font-weight: normal;">Provides full access.</p>
-                    </div>
+                <div>
                     
                     <div class="radio">
-                        <label><input type="radio" asp-for="Input.Role" name="Role" value="Owner">&nbsp; Owner</label>
-                        <p style="font-size: 1rem; font-weight: normal;">Allows access to all information except system configuration.</p>
+                        @Html.RadioButtonFor(m => @Model.Input.Role, "Admin")&nbsp; Admin
+                        <p style="text-indent: 24px; font-size: 1rem; font-weight: normal;">Provides full access.</p>
                     </div>
-                    
+
                     <div class="radio">
-                        <label><input type="radio" asp-for="Input.Role" name="Role" value="Volunteer">&nbsp; Volunteer</label>
-                        <p style="font-size: 1rem; font-weight: normal;">Allows access to perform basic order entry operations.</p>
+                        @Html.RadioButtonFor(m => @Model.Input.Role, "Owner")&nbsp; Owner
+                        <p style="text-indent: 24px; font-size: 1rem; font-weight: normal;">Allows access to all information except system configuration.</p>
                     </div>
-                    
+
                     <div class="radio">
-                        <label><input type="radio" asp-for="Input.Role" name="Role" value="DealerV">&nbsp; Dealer_Validated</label>
-                        <p style="font-size: 1rem; font-weight: normal;">Allows access to the My Sales feature and the newsletter. Must be a registered dealer</p>
+                        @Html.RadioButtonFor(m => @Model.Input.Role, "Volunteer")&nbsp; Volunteer
+                        <p style="text-indent: 24px; font-size: 1rem; font-weight: normal;">Allows access to perform basic order entry operations.</p>
                     </div>
-                    
+
                     <div class="radio">
-                        <label><input type="radio" asp-for="Input.Role" name="Role" value="DealerNV">&nbsp; DealerNV</label>
-                        <p style="font-size: 1rem; font-weight: normal;">The level of access a dealer is given when they initially sign up. Once confirmed they can access the My Sales feature.</p>
+                        @Html.RadioButtonFor(m => @Model.Input.Role, "DealerV")&nbsp;Validated Dealer
+                        <p style="text-indent: 24px; font-size: 1rem; font-weight: normal;">Allows access to the <b>My Sales</b> feature and the newsletter. Must be a registered dealer</p>
                     </div>
+
                     <div class="radio">
-                        <label><input type="radio" asp-for="Input.Role" checked name="Role" value="Customer">&nbsp; Customer</label>
-                        <p style="font-size: 1rem; font-weight: normal;">Access to store website only.</p>
+                        @Html.RadioButtonFor(m => @Model.Input.Role, "DealerNV")&nbsp;Unvalidated Dealer
+                        <p style="text-indent: 24px; font-size: 1rem; font-weight: normal;">The level of access a dealer is given when they initially sign up. Once confirmed they can access the <b>My Sales</b> feature.</p>
+                    </div>
+                    <div class="radio" >
+                        @Html.RadioButtonFor(m => @Model.Input.Role, "Customer", new { @checked= "true"}) &nbsp; Customer
+                        <p style="text-indent: 24px; font-size: 1rem; font-weight: normal;">Access to store website only.</p>
                     </div>
                 </div>
             </h5>
+        </div>
+        <div class="col-2">
+            <button type="submit" class="btn btn-default btn-success">Register</button>
         </div>
     </div>
 </form>

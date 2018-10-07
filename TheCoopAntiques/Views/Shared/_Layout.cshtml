@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using TheCoopAntiques.Utility
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -27,82 +28,107 @@
         <a class="navbar-brand" asp-controller="Home" asp-action="Index" asp-area="Default">
             The Coop Antiques
         </a>
+
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav" mr-auto>
-                <li class="nav-item dropdown active">
-                    <a class="nav-link dropdown-toggle" href="#" id="ndDealers" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-users">&nbsp;</i>
-                        Dealers
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="ndDealers">
-                        <a class="dropdown-item" asp-area="Admin" asp-controller="Dealers" asp-action="Create">Add Dealer</a>
-                        <a class="dropdown-item" asp-area="Admin" asp-controller="Dealers" asp-action="Index">View Dealers</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Dealer Fees & Balances</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown active">
-                    <a class="nav-link dropdown-toggle" href="#" id="ndOrders" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="far fa-file-alt">&nbsp;</i>
-                        Orders
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="ndOrders">
-                        <a class="dropdown-item" asp-area="Admin" asp-controller="Orders" asp-action="Create">New Order</a>
-                        <a class="dropdown-item" asp-area="Admin" asp-controller="Orders" asp-action="Index">Order Search</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" asp-area="Admin" asp-controller="Layaways" asp-action="Index">Layaways</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown active">
-                    <a class="nav-link dropdown-toggle" href="#" id="ndProcessing" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-calculator">&nbsp;</i>
-                        Processing
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="ndProcessing">
-                        <a class="dropdown-item" asp-area="Admin" asp-controller="Processing" asp-action="Create">Weekly Processing</a>
-                        <a class="dropdown-item" asp-area="Admin" asp-controller="Processing" asp-action="Index">Monthly Processing</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown active">
-                    <a class="nav-link dropdown-toggle" href="#" id="ndConfiguration" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-wrench">&nbsp;</i>
-                        Configuration
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="ndConfiguration">
-                        <a class="dropdown-item" asp-area="Admin" asp-controller="TransactionTypes" asp-action="Index">Transaction Types</a>
-                        <a class="dropdown-item" asp-area="Admin" asp-controller="TaxRates" asp-action="Index">Tax Rates</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" asp-area="Admin" asp-controller="Periods" asp-action="Index">Period Maintance</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown active">
-                    <a class="nav-link dropdown-toggle" href="#" id="ndSales" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-dollar-sign">&nbsp;</i>
-                        My Sales
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="ndSales">
-                        <a class="dropdown-item" asp-area="Admin" asp-controller="Sales" asp-action="Index">This Month</a>
-                        <a class="dropdown-item" asp-area="Admin" asp-controller="Sales" asp-action="Index">Previous Month</a>
-                    </div>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">
-                        <i class="fas fa-newspaper">&nbsp;</i>
-                        Dealer Newsletter
-                    </a>
-                </li>
-                <li class="nav-item dropdown active">
-                    <a class="nav-link dropdown-toggle" href="#" id="ndUsers" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-users-cog">&nbsp;</i>
-                        Users
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="ndUsers">
-                        <a class="dropdown-item" href="#">Add User</a>
-                        <a class="dropdown-item" asp-area="Admin" asp-controller="Users" asp-action="Index">Maintain Users</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Security Roles</a>
-                    </div>
-                </li>
+                @if (User.IsInRole(SD.AdminUser) ||
+                   User.IsInRole(SD.Owner))
+                {
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle" href="#" id="ndDealers" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-users">&nbsp;</i>
+                            Dealers
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="ndDealers">
+                            <a class="dropdown-item" asp-area="Admin" asp-controller="Dealers" asp-action="Create">Add Dealer</a>
+                            <a class="dropdown-item" asp-area="Admin" asp-controller="Dealers" asp-action="Index">View Dealers</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Dealer Fees & Balances</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle" href="#" id="ndProcessing" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-calculator">&nbsp;</i>
+                            Processing
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="ndProcessing">
+                            <a class="dropdown-item" asp-area="Admin" asp-controller="Processing" asp-action="Create">Weekly Processing</a>
+                            <a class="dropdown-item" asp-area="Admin" asp-controller="Processing" asp-action="Index">Monthly Processing</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle" href="#" id="ndConfiguration" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-wrench">&nbsp;</i>
+                            Configuration
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="ndConfiguration">
+                            <a class="dropdown-item" asp-area="Admin" asp-controller="TransactionTypes" asp-action="Index">Transaction Types</a>
+                            <a class="dropdown-item" asp-area="Admin" asp-controller="TaxRates" asp-action="Index">Tax Rates</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" asp-area="Admin" asp-controller="Periods" asp-action="Index">Period Maintance</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" asp-area="Admin" asp-controller="Newsletter" asp-action="Index">Edit Newsletter</a>
+                        </div>
+                    </li>
+                }
+                @if (User.IsInRole(SD.AdminUser) ||
+                     User.IsInRole(SD.Owner) ||
+                     User.IsInRole(SD.Volunteer))
+                {
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle" href="#" id="ndOrders" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="far fa-file-alt">&nbsp;</i>
+                            Orders
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="ndOrders">
+                            <a class="dropdown-item" asp-area="Admin" asp-controller="Orders" asp-action="Create">New Order</a>
+                            <a class="dropdown-item" asp-area="Admin" asp-controller="Orders" asp-action="Index">Order Search</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" asp-area="Admin" asp-controller="Layaways" asp-action="Index">Layaways</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle" href="#" id="ndUsers" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-users-cog">&nbsp;</i>
+                            Users
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="ndUsers">
+                            <a class="dropdown-item" a asp-area="Identity" asp-page="/Account/Register">Add User</a>
+                            <a class="dropdown-item" asp-area="Admin" asp-controller="Users" asp-action="Index">Maintain Users</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Security Roles</a>
+                        </div>
+                    </li>
+                }
+                @if (User.IsInRole(SD.AdminUser) ||
+                    User.IsInRole(SD.Owner) ||
+                    User.IsInRole(SD.Volunteer) ||
+                    User.IsInRole(SD.DealerV))
+                {
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle" href="#" id="ndSales" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-dollar-sign">&nbsp;</i>
+                            My Sales
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="ndSales">
+                            <a class="dropdown-item" asp-area="Dealer" asp-controller="Sales" asp-action="Index">This Month</a>
+                            <a class="dropdown-item" asp-area="Dealer" asp-controller="Sales" asp-action="Index">Previous Month</a>
+                        </div>
+                    </li>
+                }
+                @if (User.IsInRole(SD.AdminUser) ||
+                    User.IsInRole(SD.Owner) ||
+                    User.IsInRole(SD.Volunteer) ||
+                    User.IsInRole(SD.DealerV) ||
+                    User.IsInRole(SD.DealerNV))
+                {
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-newspaper">&nbsp;</i>
+                            Dealer Newsletter
+                        </a>
+                    </li>
+                }
             </ul>
         </div>
         <div>

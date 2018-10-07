@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<TheCoopAntiques.Models.ApplicationUser>
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <br />
 <div class="row">
@@ -15,7 +16,7 @@
 </div>
 <br />
 <div class="row">
-    <table class="table table-striped table-hover border">
+    <table class="table table-striped table-hover border col-12">
         <tr class="table-info">
             <th>
                 @Html.DisplayNameFor(u => u.FirstName)
@@ -27,13 +28,10 @@
                 @Html.DisplayNameFor(u => u.Email)
             </th>
             <th>
-                @Html.DisplayNameFor(u => u.PhoneNumber)
-            </th>
-            <th>
                 @Html.DisplayNameFor(u => u.Dealers.Name)
             </th>
             <th>
-
+                Status
             </th>
             <th>
 
@@ -52,9 +50,6 @@
                     @Html.DisplayFor(d => item.Email)
                 </td>
                 <td>
-                    @Html.DisplayFor(d => item.PhoneNumber)
-                </td>
-                <td>
                     @Html.DisplayFor(d => item.Dealers.Name)
                 </td>
                 <td>
@@ -63,7 +58,7 @@
                         <span class="badge badge-danger">DISABLED</span>
                     }
                 </td>
-                <td class="text-right btn btn-group" role="group" style="width: 80px; ">
+                <td class="text-right btn btn-group" role="group" style="width: 60px; ">
                     @if (item.LockoutEnd == null || item.LockoutEnd < DateTime.Now)
                     {
                         <a type="button" class="btn btn-success" href="@Url.Action("Edit/" + item.Id)">
