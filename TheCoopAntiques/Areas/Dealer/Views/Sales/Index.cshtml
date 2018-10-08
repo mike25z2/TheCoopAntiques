@@ -4,8 +4,8 @@
 }
 <br />
 <div class="row">
-    <div class="col-4">
-        <h2 class="text-info">Sales</h2>
+    <div class="col-12">
+        <h2 class="text-info">Dealer Sales For @ViewBag.DealerName</h2>
     </div>
 </div>
 <br />
@@ -24,9 +24,10 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(i => i.Amount)
+                    @{ decimal total = 0M;}
                 </th>
-                <th>
-                    @Html.DisplayNameFor(i => i.Orders.TransactionTypes.Name)
+                <th class="text-right">
+                    Type of Sale
                 </th>
             </tr>
             @foreach (var item in Model)
@@ -41,14 +42,26 @@
                     <td>
                         @Html.DisplayFor(i => item.Description)
                     </td>
-                    <td>
-                        @Html.DisplayFor(i => item.Amount)
+                    <td class="text-right">
+                        @String.Format("{0:c}", item.Amount)
+                        @{ total += item.Amount;}
                     </td>
-                    <td>
+                    <td class="text-right">
                         @Html.DisplayFor(i => item.Orders.TransactionTypes.Name)
                     </td>
                 </tr>
             }
+                <tr style="background-color:cornsilk">
+                    <td></td>
+                    <td></td>
+                    <td class="text-right">
+                        Total:
+                    </td>
+                    <td class="text-right" style="font-weight: bold">
+                        @total.ToString("c")
+                    </td>
+                    <td></td>
+                </tr>
         </table>
     </div>
 </div>

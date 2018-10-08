@@ -4,15 +4,25 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyModel.Resolution;
+using TheCoopAntiques.Data;
 using TheCoopAntiques.Models;
+using TheCoopAntiques.Models.ViewModel;
 
 namespace TheCoopAntiques.Controllers
 {
     [Area("Default")]
-    public class HomeController : Controller
+    public class HomeController : ApplicationController
     {
+        
+        public HomeController(ApplicationDbContext db): base(db)
+        {
+            
+        }
+
         public IActionResult Index()
         {
+            ViewData["Status"] = StatusVM;
             return View();
         }
 
@@ -25,8 +35,6 @@ namespace TheCoopAntiques.Controllers
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
-
             return View();
         }
 
@@ -34,7 +42,7 @@ namespace TheCoopAntiques.Controllers
         {
             return View();
         }
-
+        
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

@@ -32,8 +32,11 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
             var claimsIdentity = (ClaimsIdentity)this.User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             var applicationUser = _db.ApplicationUser.FirstOrDefault(u => u.Id == claim.Value);
+            if (applicationUser == null) return NotFound();
             var items = _db.Items.Include(i => i.Orders.TransactionTypes)
                 .Where(i => i.DealerId == applicationUser.DealerId).ToList();
+            var dealer = _db.Dealers.Find(applicationUser.DealerId);
+            ViewBag.DealerName = $"{dealer.Name}: {dealer.FirstName} {dealer.LastName}";
             return View(items);
         }
     }

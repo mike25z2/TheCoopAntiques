@@ -27,7 +27,9 @@
                     <div class="checkbox">
                         <label asp-for="Input.RememberMe">
                             <input asp-for="Input.RememberMe" />
-                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                            @Html.DisplayNameFor(m => m.Input.RememberMe) 
+                            <br/>
+                            <i style="color: darkred; font-weight: bold;">Do not use on a shared or public computer if you choose the "Remember me" option.</i>
                         </label>
                     </div>
                 </div>

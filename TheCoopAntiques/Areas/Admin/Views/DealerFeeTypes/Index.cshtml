@@ -1,0 +1,56 @@
+﻿@model IEnumerable<TheCoopAntiques.Models.DealerFeeTypes>
+@{
+    ViewData["Title"] = "Index";
+}
+<br />
+<div class="row">
+    <div class="col-4">
+        <h2 class="text-info">Dealer Fee Types</h2>
+    </div>
+    <div class="col-4 text-right">
+        <a asp-action="Create" class="btn btn-info">
+            <i class="fas fa-plus"></i>&nbsp; Add Transaction Type
+        </a>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-8">
+        <table class="table table-striped border table-hover">
+            <tr class="table-info">
+                <th>
+                    @Html.DisplayNameFor(f => f.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(f => f.IsDeduction)
+                </th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(t => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(t => item.IsDeduction)
+                    </td>
+                    <td>
+                        @if (item.Disabled)
+                        {
+                            <span class="badge badge-danger">DISABLED</span>
+                        }
+                    </td>
+                    <td>
+                        <partial name="_TableButtonPartial" model="@item.Id" />
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="col-4 text-center">
+        <img src="~/images/MoneyBag.png" style="width: 80%;" />
+    </div>
+</div>

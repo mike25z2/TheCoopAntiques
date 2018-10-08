@@ -1,14 +1,18 @@
 ﻿@model IEnumerable<TheCoopAntiques.Models.Periods>
 @{
     ViewData["Title"] = "Index";
-
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <br />
 <div class="row">
-    <div class="col-6">
+    <div class="col-10">
         <h2 class="text-info">Period Adjustment</h2>
+        @if (ViewBag.Count == 0)
+        {
+            <h4 style="color: red">There are currently no active periods.</h4>
+        }
     </div>
-    <div class="col-6 text-right">
+    <div class="col-2 text-right">
         <a asp-action="Create" class="btn btn-info">
             <i class="far fa-clock"></i>&nbsp; Create Period
         </a>
@@ -19,7 +23,10 @@
     <table class="table table-striped table-hover border">
         <tr class="table-info">
             <th>
-                @Html.DisplayNameFor(p=> p.PeriodName)
+
+            </th>
+            <th>
+                @Html.DisplayNameFor(p => p.PeriodName)
             </th>
             <th>
                 @Html.DisplayNameFor(p => p.PeriodType)
@@ -28,43 +35,88 @@
                 @Html.DisplayNameFor(p => p.StartDate)
             </th>
             <th>
-                @Html.DisplayNameFor(p=> p.EndDate)
+                @Html.DisplayNameFor(p => p.EndDate)
             </th>
             <th>
-                @Html.DisplayNameFor(p=> p.MonthInt)
+                @Html.DisplayNameFor(p => p.Month)
             </th>
             <th>
-                @Html.DisplayNameFor(p=> p.YearInt)
+                @Html.DisplayNameFor(p => p.YearInt)
+            </th>
+            <th>
+
             </th>
             <th>
 
             </th>
             <th></th>
         </tr>
+        @{}
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(d => item.PeriodName)
-                </td>
-                <td>
+            if (item.IsCurrent)
+            {
+                <tr style="background-color: lightgreen;">
+                    <td style="width: 20px;">
+                        
+                    </td>
+                    <td>
+                        @Html.DisplayFor(d => item.PeriodName)
+                    </td>
+                    <td>
                     @Html.DisplayFor(d => item.PeriodType)
-                <td>
-                    @Html.DisplayFor(d => item.StartDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(d => item.EndDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(d => item.MonthInt)
-                </td>
-                <td>
-                    @Html.DisplayFor(d => item.YearInt)
-                </td>
-                <td>
-                    <partial name="_TableButtonPartial" model="item.Id" />
-                </td>
-            </tr>
+                    <td>
+                        @Html.DisplayFor(d => item.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(d => item.EndDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(d => item.Month)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(d => item.YearInt)
+                    </td>
+                    <td>
+                    
+                    </td>
+                    <td>
+                        <partial name="_TableButtonPartial" model="item.Id"/>
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td style="width: 20px;">
+                        <a asp-action="SetPeriod" class="btn btn-warning" asp-route-id="@item.Id">
+                            <i class="fas fa-bolt"></i>
+                        </a>
+                    <td>
+                        @Html.DisplayFor(d => item.PeriodName)
+                    </td>
+                    <td>
+                    @Html.DisplayFor(d => item.PeriodType)
+                    <td>
+                        @Html.DisplayFor(d => item.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(d => item.EndDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(d => item.Month)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(d => item.YearInt)
+                    </td>
+                    <td>
+                    
+                    </td>
+                    <td>
+                        <partial name="_TableButtonPartial" model="item.Id"/>
+                    </td>
+                </tr>
+            }
         }
 
     </table>

@@ -34,5 +34,11 @@ namespace TheCoopAntiques.Models
 
         [ForeignKey("OrderId")]
         public virtual Orders Orders { get; set; }
+
+        public string UserId { get; set; }
+
+        public DateTime CreatedOnDate { get; set; }
+
+        public DateTime LastUpdateDate { get; set; }
     }
 }

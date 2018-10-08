@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TheCoopAntiques.Controllers;
 using TheCoopAntiques.Data;
 using TheCoopAntiques.Models.ViewModel;
 using TheCoopAntiques.Utility;
@@ -13,14 +14,14 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
 {
     [Authorize(Roles = SD.AdminUser + "," + SD.Owner + "," + SD.Volunteer)]
     [Area("Admin")]
-    public class OrdersController : Controller
+    public class OrdersController : ApplicationController
     {
         private readonly ApplicationDbContext _db;
 
         [BindProperty]
         public OrdersViewModel OrdersVM { get; set; }
         
-        public OrdersController(ApplicationDbContext db)
+        public OrdersController(ApplicationDbContext db) :base(db)
         {
             _db = db;
             OrdersVM = new OrdersViewModel()
@@ -34,6 +35,7 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
+            ViewData["Status"] = StatusVM;
             var orders = _db.Orders.Include(m => m.TransactionTypes).Include(m => m.Dealers);
             return View(await orders.ToListAsync());
         }
@@ -41,6 +43,7 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
         // GET CREATE
         public IActionResult Create()
         {
+            ViewData["Status"] = StatusVM;
             OrdersVM.Orders.DealerId =  _db.Dealers.First(d => d.Name == "None").Id;
             return View(OrdersVM);
         }
@@ -60,6 +63,7 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
         //GET Details
         public async Task<IActionResult> Details(int? id)
         {
+            ViewData["Status"] = StatusVM;
             if (id == null) return NotFound();
             OrdersVM.Orders = await _db.Orders.Include(m => m.TransactionTypes).Include(m => m.Dealers)
                 .SingleOrDefaultAsync(m => m.Id == id);
@@ -71,6 +75,7 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
         //GET EDIT
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewData["Status"] = StatusVM;
             if (id == null) return NotFound();
             OrdersVM.Orders = await _db.Orders.Include(m => m.TransactionTypes).Include(m => m.Dealers)
                 .SingleOrDefaultAsync(m => m.Id == id);
@@ -99,6 +104,7 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
         //GET DELETE
         public async Task<IActionResult> Delete(int? id)
         {
+            ViewData["Status"] = StatusVM;
             if (id == null) return NotFound();
             OrdersVM.Orders = await _db.Orders.Include(m => m.TransactionTypes).Include(m => m.Dealers)
                 .SingleOrDefaultAsync(m => m.Id == id);

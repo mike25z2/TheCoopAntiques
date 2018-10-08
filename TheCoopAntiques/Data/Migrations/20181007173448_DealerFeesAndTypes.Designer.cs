@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TheCoopAntiques.Data;
 
 namespace TheCoopAntiques.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181007173448_DealerFeesAndTypes")]
+    partial class DealerFeesAndTypes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -185,49 +187,6 @@ namespace TheCoopAntiques.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("TheCoopAntiques.Models.DealerFees", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<decimal>("Amount");
-
-                    b.Property<int>("DealerFeeTypeId");
-
-                    b.Property<int>("DealerId");
-
-                    b.Property<int>("PeriodId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DealerFeeTypeId");
-
-                    b.HasIndex("DealerId");
-
-                    b.HasIndex("PeriodId");
-
-                    b.ToTable("DealerFees");
-                });
-
-            modelBuilder.Entity("TheCoopAntiques.Models.DealerFeeTypes", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("Disabled");
-
-                    b.Property<bool>("IsDeduction");
-
-                    b.Property<string>("Name")
-                        .IsRequired();
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DealerFeeTypes");
-                });
-
             modelBuilder.Entity("TheCoopAntiques.Models.Dealers", b =>
                 {
                     b.Property<int>("Id")
@@ -273,20 +232,14 @@ namespace TheCoopAntiques.Data.Migrations
 
                     b.Property<decimal>("Amount");
 
-                    b.Property<DateTime>("CreatedOnDate");
-
                     b.Property<int>("DealerId");
 
                     b.Property<string>("Description")
                         .IsRequired();
 
-                    b.Property<DateTime>("LastUpdateDate");
-
                     b.Property<int>("OrderId");
 
                     b.Property<bool>("TaxExempt");
-
-                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
@@ -330,8 +283,6 @@ namespace TheCoopAntiques.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("EndDate");
-
-                    b.Property<bool>("IsCurrent");
 
                     b.Property<int>("MonthInt");
 
@@ -442,24 +393,6 @@ namespace TheCoopAntiques.Data.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("TheCoopAntiques.Models.DealerFees", b =>
-                {
-                    b.HasOne("TheCoopAntiques.Models.DealerFeeTypes", "DealerFeeTypes")
-                        .WithMany()
-                        .HasForeignKey("DealerFeeTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("TheCoopAntiques.Models.Dealers", "Dealers")
-                        .WithMany()
-                        .HasForeignKey("DealerId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("TheCoopAntiques.Models.Periods", "Periods")
-                        .WithMany()
-                        .HasForeignKey("PeriodId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

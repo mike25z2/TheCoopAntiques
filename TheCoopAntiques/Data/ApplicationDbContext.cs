@@ -21,5 +21,7 @@ namespace TheCoopAntiques.Data
         public DbSet<Items> Items { get; set; }
         public DbSet<Periods> Periods { get; set; }
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
+        public DbSet<DealerFees> DealerFees { get; set; }
+        public DbSet<DealerFeeTypes> DealerFeeTypes { get; set; }
     }
 }

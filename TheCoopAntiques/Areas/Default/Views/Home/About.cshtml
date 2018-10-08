@@ -1,7 +1,70 @@
 ﻿@{
     ViewData["Title"] = "About";
 }
-<h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
+<br />
+<body class="boards">
+    <div class="row">
+        <div class="card col-4" style="background-color: maroon; color: whitesmoke;">
+            <h2 class="text-center">Store Hours</h2>
+            <table class="table border" style="background-color: maroon; color: whitesmoke">
+                <tr>
+                    <td class="border">Monday</td>
+                    <td>10:00 AM - 6:00 PM</td>
+                </tr>
+                <tr>
+                    <td class="border">Tuesday</td>
+                    <td>10:00 AM - 6:00 PM</td>
+                </tr>
+                <tr>
+                    <td class="border">Wednesday</td>
+                    <td>10:00 AM - 6:00 PM</td>
+                </tr>
+                <tr>
+                    <td class="border">Thursday</td>
+                    <td>10:00 AM - 6:00 PM</td>
+                </tr>
+                <tr>
+                    <td class="border">Friday</td>
+                    <td>10:00 AM - 6:00 PM</td>
+                </tr>
+                <tr>
+                    <td class="border">Saturday</td>
+                    <td>10:00 AM - 6:00 PM</td>
+                </tr>
+            </table>
+            <p class="text-center">
+                We are closed on Thanksgiving, Christmas and New Year's Day.
+            </p>
 
-<p>Use this area to provide additional information.</p>
+        </div>
+        <div class="col-4">
+            <div class="text-center">
+                <a href="https://www.facebook.com/thecoopantiques/">
+                    <img src="/images/FaceBookLike.png" style="width: 100%" />
+                </a>
+            </div>
+        </div>
+        <div class="card col-4 rounded" style="background-color: maroon; color: whitesmoke;">
+            <div class="card-header">
+                <h2 class="text-center">Location</h2>
+            </div>
+            <div class="container p-4 rounded">
+                <div class="mapouter">
+                    <div class="gmap_canvas">
+                        <iframe width="300" height="300" id="gmap_canvas" src="https://maps.google.com/maps?q=97%20Geneva%20Drive%2C%20Oviedo%2C%20FL%20%203276&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                        <a href="https://www.pureblack.de/google-maps/"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="container p-4 rounded" style="background-color: maroon; color: whitesmoke; font-size: 2em;">
+        <p class="text-center">
+            We are located in downtown Oviedo in the Oviedo Shopping Center.<br />
+            We are in the same plaza as Ace Hardware and the Post Office.
+        </p>
+    </div>
+</body>
+
