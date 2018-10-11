@@ -1,0 +1,43 @@
+﻿@model TheCoopAntiques.Models.ViewModel.DealerViewModel
+<div class="col-10">
+    <table class="table table-striped border table-hover">
+        <tr class="table-info">
+            <th>
+                Copy
+            </th>
+            <th>
+                Period Name
+            </th>
+            <th>
+                Dealer Fee Type
+            </th>
+            <th>
+                Amount
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+        @foreach (var item in @Model.DealerFees)
+        {
+            <tr>
+                <td>
+                    <a class="btn btn-warning" asp-controller="DealerFees" asp-action="Copy" asp-route-id="@item.Id">
+                        <i class="far fa-clone"></i>
+                    </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(i => item.Periods.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(i => item.DealerFeeTypes.Name)
+                </td>
+                <td>
+                    @String.Format("{0:c}", item.Amount)
+                </td>
+                <td>
+                    <partial name="_TableButtonPartial" model="@item.Id"/>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

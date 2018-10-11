@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using TheCoopAntiques.Controllers;
 using TheCoopAntiques.Data;
 using TheCoopAntiques.Models;
+using TheCoopAntiques.Models.ViewModel;
 using TheCoopAntiques.Utility;
 
 
@@ -13,18 +17,18 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
 {
     [Authorize(Roles = SD.AdminUser + "," + SD.Owner)]
     [Area("Admin")]
-    public class DealersController : Controller
+    public class DealersController : ApplicationController
     {
-        private readonly ApplicationDbContext _db;
-
-        public DealersController(ApplicationDbContext db)
+        public DealersController(ApplicationDbContext db): base(db)
         {
-            _db = db;
+           _db = db;
         }
 
+        #region Dealer Info
         public IActionResult Index()
         {
-            return View(_db.Dealers.OrderBy(d=>d.Name).ToList());
+            ViewData["Status"] = StatusVM;
+            return View(_db.Dealers.OrderBy(d => d.Name).ToList());
         }
 
         //GET CREATE
@@ -95,5 +99,8 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        #endregion
+
     }
 }

@@ -45,7 +45,7 @@ namespace TheCoopAntiques.Models
         public DateTime EndDate { get; set; }
         
         [Display(Name="Period Name")]
-        public virtual string PeriodName => YearInt + MonthInt.ToString("00");
+        public virtual string Name => YearInt + MonthInt.ToString("00");
 
         [Display(Name="Month Number")]
         [DisplayFormat(DataFormatString = "{0:00}")]

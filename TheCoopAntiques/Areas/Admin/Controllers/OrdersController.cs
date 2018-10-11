@@ -16,8 +16,6 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
     [Area("Admin")]
     public class OrdersController : ApplicationController
     {
-        private readonly ApplicationDbContext _db;
-
         [BindProperty]
         public OrdersViewModel OrdersVM { get; set; }
         
@@ -57,7 +55,14 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
             OrdersVM.Orders.InvoiceNumber= OrdersVM.Orders.InvoiceNumber.PadLeft(8, '0');
             _db.Orders.Add(OrdersVM.Orders);
             await _db.SaveChangesAsync();
-            return RedirectToAction("Edit", new {id = OrdersVM.Orders.Id});
+            if (OrdersVM.Orders.TransactionTypes.Name == "LAYAWAY")
+            {
+                return RedirectToAction("Create","Layaways", new { id = OrdersVM.Orders.Id });
+            }
+            else
+            {
+                return RedirectToAction("Edit", new { id = OrdersVM.Orders.Id });
+            }
         }
 
         //GET Details
