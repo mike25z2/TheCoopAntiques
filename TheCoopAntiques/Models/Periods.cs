@@ -45,7 +45,9 @@ namespace TheCoopAntiques.Models
         public DateTime EndDate { get; set; }
         
         [Display(Name="Period Name")]
-        public virtual string Name => YearInt + MonthInt.ToString("00");
+        public virtual string Name => $"{Month} {YearInt.ToString()}";
+
+        public virtual string NumericPeriod => YearInt + MonthInt.ToString("00");
 
         [Display(Name="Month Number")]
         [DisplayFormat(DataFormatString = "{0:00}")]
@@ -73,7 +75,7 @@ namespace TheCoopAntiques.Models
 
         public override string ToString()
         {
-            return $"Current Accounting Period: {Month} {YearInt.ToString()}";
+            return $"{Month} {YearInt.ToString()}";
         }
     }
 }

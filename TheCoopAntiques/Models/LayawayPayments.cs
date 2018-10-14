@@ -27,5 +27,7 @@ namespace TheCoopAntiques.Models
         [ForeignKey("TransactionTypeId")]
         [Display(Name = "Type")]
         public virtual TransactionTypes TransactionTypes { get; set; }
+
+        public bool Void { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TheCoopAntiques.Controllers;
 using TheCoopAntiques.Data;
 using TheCoopAntiques.Models;
@@ -16,6 +17,7 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
     [Area("Admin")]
     public class LayawaysController : ApplicationController
     {
+        [BindProperty]
         public LayawaysViewModel LayawaysVM { get; set; }
 
         public LayawaysController(ApplicationDbContext db): base(db)
@@ -23,21 +25,17 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
             _db = db;
             LayawaysVM = new LayawaysViewModel()
             {
-                Layaways = new Layaways(),
+                Layaways = new Models.Layaways(),
                 LayawayPayments = _db.LayawayPayments.Where(lay => lay.LayAwayId == LayawaysVM.Layaways.Id).ToList(),
-                OrdersVM = new OrdersViewModel()
-                {
-                    TransactionTypes = _db.TransactionTypes.Where(t => t.Disabled == false).ToList(),
-                    Dealers = _db.Dealers.Where(d => d.Disabled == false).OrderBy(d => d.Name).ToList(),
-                    Orders = new Models.Orders(),
-                    Items = _db.Items.Where(i => i.OrderId == LayawaysVM.OrdersVM.Orders.Id)
-                },
+                Orders = new Models.Orders()
             };
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            ViewData["Status"] = StatusVM;
+            var layaways = _db.Layaways.Include(m => m.Orders);
+            return View(await layaways.ToListAsync());
         }
 
         //GET CREATE

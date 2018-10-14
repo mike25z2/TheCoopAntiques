@@ -9,7 +9,7 @@ namespace TheCoopAntiques.Models.ViewModel
     {
         public Layaways Layaways { get; set; }
 
-        public OrdersViewModel OrdersVM { get; set; }
+        public Orders Orders { get; set; }
 
         public IEnumerable<LayawayPayments> LayawayPayments { get; set; }
 
@@ -17,12 +17,13 @@ namespace TheCoopAntiques.Models.ViewModel
         {
             decimal balance = 0.0M;
 
+            if (LayawayPayments == null) return balance;
             foreach (var payment in LayawayPayments)
             {
                 balance = +payment.Amount;
             }
-
             return balance;
+
         }
     }
 }

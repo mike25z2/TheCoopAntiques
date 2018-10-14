@@ -25,5 +25,6 @@ namespace TheCoopAntiques.Data
         public DbSet<DealerFeeTypes> DealerFeeTypes { get; set; }
         public DbSet<LayawayPayments> LayawayPayments { get; set; }
         public DbSet<Layaways> Layaways { get; set; }
+        public DbSet<DealerPayments> DealerPayments { get; set; }
     }
 }

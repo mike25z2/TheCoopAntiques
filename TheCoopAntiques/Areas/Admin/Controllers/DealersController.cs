@@ -46,7 +46,7 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
             dealers.Name = dealers.Name.ToUpper();
             _db.Add(dealers);
             await _db.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Create", "DealerFees", new {dealerId = dealers.Id});
         }
 
         //GET EDIT

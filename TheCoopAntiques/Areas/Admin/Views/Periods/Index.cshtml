@@ -38,13 +38,7 @@
                 @Html.DisplayNameFor(p => p.EndDate)
             </th>
             <th>
-                @Html.DisplayNameFor(p => p.Month)
-            </th>
-            <th>
-                @Html.DisplayNameFor(p => p.YearInt)
-            </th>
-            <th>
-
+                Identifier
             </th>
             <th>
 
@@ -57,14 +51,12 @@
             if (item.IsCurrent)
             {
                 <tr style="background-color: lightgreen;">
-                    <td style="width: 20px;">
-                        
-                    </td>
+                    <td style="width: 20px;"></td>
                     <td>
                         @Html.DisplayFor(d => item.Name)
                     </td>
                     <td>
-                    @Html.DisplayFor(d => item.PeriodType)
+                        @Html.DisplayFor(d => item.PeriodType)
                     <td>
                         @Html.DisplayFor(d => item.StartDate)
                     </td>
@@ -72,16 +64,10 @@
                         @Html.DisplayFor(d => item.EndDate)
                     </td>
                     <td>
-                        @Html.DisplayFor(d => item.Month)
+                        @Html.DisplayFor(d => item.NumericPeriod)
                     </td>
                     <td>
-                        @Html.DisplayFor(d => item.YearInt)
-                    </td>
-                    <td>
-                    
-                    </td>
-                    <td>
-                        <partial name="_TableButtonPartial" model="item.Id"/>
+                        <partial name="_TableButtonPartial" model="item.Id" />
                     </td>
                 </tr>
             }
@@ -96,7 +82,7 @@
                         @Html.DisplayFor(d => item.Name)
                     </td>
                     <td>
-                    @Html.DisplayFor(d => item.PeriodType)
+                        @Html.DisplayFor(d => item.PeriodType)
                     <td>
                         @Html.DisplayFor(d => item.StartDate)
                     </td>
@@ -104,16 +90,10 @@
                         @Html.DisplayFor(d => item.EndDate)
                     </td>
                     <td>
-                        @Html.DisplayFor(d => item.Month)
+                        @Html.DisplayFor(d => item.NumericPeriod)
                     </td>
                     <td>
-                        @Html.DisplayFor(d => item.YearInt)
-                    </td>
-                    <td>
-                    
-                    </td>
-                    <td>
-                        <partial name="_TableButtonPartial" model="item.Id"/>
+                        <partial name="_TableButtonPartial" model="item.Id" />
                     </td>
                 </tr>
             }

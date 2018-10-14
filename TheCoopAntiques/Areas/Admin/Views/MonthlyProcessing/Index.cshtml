@@ -1,0 +1,82 @@
+﻿@model IEnumerable<TheCoopAntiques.Utility.DealerProcessor>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<div class="row">
+    <div class="col-12">
+        <h2 class="text-info">Active Dealers for the Current Period</h2>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-12">
+        <table class="table table-striped border table-hover">
+            <tr class="table-info">
+                <th style="width: 100px;">
+                    Dealer ID
+                </th>
+                <th class="text-right">
+                    Sales
+                </th>
+                <th class="text-right">
+                    Dealer Fees
+                </th>
+                <th class="text-right">
+                    Credit Card Sales
+                </th>
+                <th class="text-right">
+                    On Account
+                </th>
+                <th class="text-right">
+                    Period Balance
+                </th>
+            </tr>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(t => item.Dealer.Name)
+                </td>
+                <td class="text-right">
+                    @String.Format("{0:c}", item.SalesTotal)
+                </td>
+                <td class="text-right">
+                    @if (item.Lock)
+                    {
+                        <span class="badge badge-danger">
+                            MISSING FEE
+                        </span>
+                    }
+                    else
+                    {
+                        @String.Format("{0:c}", item.FeesTotal)
+                    }
+                </td>
+                <td class="text-right">
+                    @String.Format("{0:c}", item.CreditSales)
+                </td>
+                <td class="text-right">
+                    @String.Format("{0:c}", item.OnAccountTotal)
+                </td>
+
+                @if (item.AmountToBePaid < 0)
+                {
+                    <td class="text-right" style="color: red">
+                        @String.Format("{0:c}", item.AmountToBePaid)
+                    </td>
+                }
+                else
+                {
+                    <td class="text-right">
+                        @String.Format("{0:c}", item.AmountToBePaid)
+                    </td>
+                }
+                
+            </tr>
+            }
+        </table>
+    </div>
+
+</div>

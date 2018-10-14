@@ -24,7 +24,7 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             ViewBag.Count = _db.Periods.Count(p => p.IsCurrent == true);
-            return View(await _db.Periods.OrderBy(p=> p.Name).ToListAsync());
+            return View(await _db.Periods.OrderBy(p=> p.NumericPeriod).ToListAsync());
         }
 
         //GET CREATE

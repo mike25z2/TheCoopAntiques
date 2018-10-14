@@ -36,7 +36,7 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
             var items = _db.Items.Include(i => i.Orders.TransactionTypes)
                 .Where(i => i.DealerId == applicationUser.DealerId).ToList();
             var dealer = _db.Dealers.Find(applicationUser.DealerId);
-            ViewBag.DealerName = $"{dealer.Name}: {dealer.FirstName} {dealer.LastName}";
+            ViewBag.DealerName = dealer.ToString();
             return View(items);
         }
     }

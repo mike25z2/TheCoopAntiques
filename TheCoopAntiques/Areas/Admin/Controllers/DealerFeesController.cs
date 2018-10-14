@@ -53,6 +53,9 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
             if (dealerId == null) return NotFound();
             DealersVM.Dealers = await _db.Dealers.SingleOrDefaultAsync(m => m.Id == dealerId);
             ViewBag.DealersVM = DealersVM;
+            //set defaults
+            DealerFeesVM.DealerFees.DealerFeeTypeId = _db.DealerFeeTypes.First(d => d.Name == "Flat").Id;
+            DealerFeesVM.DealerFees.PeriodId = StatusVM.CurrentPeriod.Id;
             return View(DealerFeesVM);
         }
 
