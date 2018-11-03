@@ -13,31 +13,29 @@
     <div class="row">
         <div class="col-6">
         <div class="p-4 border rounded col-12">
-            <input type="hidden" asp-for="@Model.Orders.Id"/>
+            <input type="hidden" asp-for="@Model.Orders.Id" />
             <div class="form-group row">
                 <div class="col-6">
                     <label asp-for="Orders.InvoiceNumber"></label>
                 </div>
                 <div class="col-6">
-                    <input type="text" asp-for="Orders.InvoiceNumber" readonly class="form-control"/>
+                    <input type="text" asp-for="Orders.InvoiceNumber" readonly class="form-control" />
                 </div>
-
             </div>
             <div class="form-group row">
                 <div class="col-6">
                     <label asp-for="Orders.OrderDate"></label>
                 </div>
                 <div class="col-6">
-                    <input type="text" asp-for="Orders.OrderDate" readonly class="form-control" asp-format="{0:MM/dd/yy}"/>
+                    <input type="text" asp-for="Orders.OrderDate" readonly class="form-control" asp-format="{0:MM/dd/yy}" />
                 </div>
-
             </div>
             <div class="form-group row">
                 <div class="col-6">
                     <label asp-for="TransactionTypes"></label>
                 </div>
                 <div class="col-6">
-                    <input type="text" asp-for="Orders.TransactionTypes.Name" readonly class="form-control"/>
+                    <input type="text" asp-for="Orders.TransactionTypes.Name" readonly class="form-control" />
                 </div>
             </div>
             <div class="form-group row">
@@ -45,7 +43,7 @@
                     <label asp-for="Dealers"></label>
                 </div>
                 <div class="col-6">
-                    <input type="text" asp-for="Orders.Dealers.Name" readonly class="form-control"/>
+                    <input type="text" asp-for="Orders.Dealers.Name" readonly class="form-control" />
                 </div>
             </div>
         </div>
@@ -59,8 +57,8 @@
     </div>
     </div>
 </form>
-<br/>
-<br/>
+<br />
+<br />
 <p class="text-center">
     <span class="p-3 alert alert-danger">
         <i class="fas fa-exclamation-triangle fa-lg" size="3">&nbsp;</i>
@@ -70,4 +68,3 @@
 </p>
 
 <partial name="_ItemDetailsPartial" model="@Model" />
-

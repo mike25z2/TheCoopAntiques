@@ -24,7 +24,7 @@
                 <label asp-for="Orders.OrderDate"></label>
             </div>
             <div class="col-6">
-                <input type="text" asp-for="Orders.OrderDate" id="datepicker" class="form-control" value="@DateTime.Today.ToShortDateString()"/>
+                <input type="text" asp-for="Orders.OrderDate" id="datepicker" class="form-control" value="@DateTime.Today.ToShortDateString()" />
             </div>
             <span asp-validation-for="Orders.OrderDate" class="text-danger"></span>
         </div>
@@ -35,7 +35,6 @@
             <div class="col-6">
                 <select asp-for="@Model.Orders.TransactionTypeId" asp-items="@Model.TransactionTypes.ToSelectListItem(Model.Orders.TransactionTypeId)" class="form-control"></select>
             </div>
-
         </div>
         <div class="form-group row">
             <div class="col-6">
@@ -44,7 +43,6 @@
             <div class="col-6">
                 <select asp-for="@Model.Orders.DealerId" asp-items="@Model.Dealers.ToSelectListItem(Model.Orders.DealerId)" class="form-control"></select>
             </div>
-
         </div>
         <div class="form-group row">
             <div class="col-6">
@@ -54,7 +52,7 @@
                 <input type="submit" class="btn btn-success btn-block" value="Create" />
             </div>
         </div>
-
+        
     </div>
 </form>
 
@@ -69,5 +67,3 @@
         });
     </script>
 }
-
-

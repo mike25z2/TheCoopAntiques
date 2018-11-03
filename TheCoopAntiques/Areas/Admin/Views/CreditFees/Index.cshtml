@@ -1,0 +1,58 @@
+﻿@model IEnumerable<TheCoopAntiques.Models.CreditFees>
+@{
+    ViewData["Title"] = "Index";
+}
+<br />
+<div class="row">
+    <div class="col-4">
+        <h2 class="text-info">Credit Fees</h2>
+    </div>
+    <div class="col-5 text-right">
+        <a asp-action="Create" class="btn btn-info">
+            <i class="fas fa-plus"></i>&nbsp; Add Credit Fee
+        </a>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-9">
+        <table class="table table-striped border table-hover">
+            <tr class="table-info">
+                <th>
+                    @Html.DisplayNameFor(c => c.StartDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(c => c.EndDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(c => c.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(c => c.Amount)
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(c => item.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(c => item.EndDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(c => item.Description)
+                    </td>
+                    <td>
+                        @String.Format("{0:c}", item.Amount)
+                    </td>
+                    <td>
+                        <partial name="_TableButtonPartial" model="@item.Id" />
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

@@ -58,7 +58,6 @@
                 <a asp-action="Delete" class="btn btn-danger btn-block" asp-route-id="@Model.Orders.Id">Delete</a>
             </div>
         </div>
-
     </div>
 </form>
 
@@ -72,8 +71,6 @@
 
 <partial name="_ItemDetailsPartial" model="@Model" view-data="ViewData" />
 
-
-
 @section Scripts{
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
     <script>
@@ -84,4 +81,3 @@
         });
     </script>
 }
-

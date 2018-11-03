@@ -1,0 +1,63 @@
+﻿@model TheCoopAntiques.Models.ViewModel.DealerViewModel
+<div class="col-10">
+    <table class="table table-striped border table-hover">
+        <tr class="table-info">
+            <th>
+                Entry Date
+            </th>
+            <th>
+                Description
+            </th>
+            <th class="text-right">
+                Amount
+                @{ decimal amount = 0M;}
+            </th>
+            <th>
+                
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+        @foreach (var item in @Model.DealerPayments)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(i=> item.EntryDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(i => item.Description)
+                </td>
+                <td class="text-right">
+                    @String.Format("{0:c}", item.Amount)
+                    
+                </td>
+                <td>
+                    @if (item.Void)
+                    {
+                        <span class="badge badge-danger">VOID</span>
+                    }
+                    else
+                    {
+                        amount += item.Amount;
+                    }
+                </td>
+                <td>
+                    <partial name="_TableButtonPartial" model="@item.Id" />
+                </td>
+            </tr>
+         }
+            <tr style="border-top: 2px solid; background-color: cornsilk; ">
+                <td></td>
+                <td class="text-right">
+                    Current Balance:
+                </td>
+                <td class="text-right">
+                    <b>@String.Format("{0:c}", amount)</b>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        
+    </table>
+</div>

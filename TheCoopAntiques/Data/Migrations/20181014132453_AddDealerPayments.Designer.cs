@@ -245,7 +245,7 @@ namespace TheCoopAntiques.Data.Migrations
 
                     b.Property<string>("Notes");
 
-                    b.Property<DateTime>("PaymentDate");
+                    b.Property<DateTime>("EntryDate");
 
                     b.HasKey("Id");
 

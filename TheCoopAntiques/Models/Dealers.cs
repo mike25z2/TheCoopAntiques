@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace TheCoopAntiques.Models
 {
@@ -18,21 +9,20 @@ namespace TheCoopAntiques.Models
 
         [Required]
         [MaxLength(5)]
-        
-        [Display(Name="Dealer ID")]
+        [Display(Name = "Dealer ID")]
         public string Name { get; set; }
 
         [Required]
-        [Display(Name="First Name")]
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-        [Display(Name="Address")]
+        [Display(Name = "Address")]
         public string Address1 { get; set; }
 
-        [Display(Name="PO Box/Apt Num")]
+        [Display(Name = "PO Box/Apt Num")]
         public string Address2 { get; set; }
 
         public string City { get; set; }
@@ -42,7 +32,7 @@ namespace TheCoopAntiques.Models
 
         public string Zip { get; set; }
 
-        [Display(Name="Phone Number")]
+        [Display(Name = "Phone Number")]
         [Phone]
         public string PhoneNumber { get; set; }
 

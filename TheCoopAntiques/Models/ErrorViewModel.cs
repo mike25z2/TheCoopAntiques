@@ -1,5 +1,3 @@
-using System;
-
 namespace TheCoopAntiques.Models
 {
     public class ErrorViewModel

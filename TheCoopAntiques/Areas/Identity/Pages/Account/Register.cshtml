@@ -48,7 +48,7 @@
             <h4 class="text-center" >Assign Access Level</h4>
             <h5>
                 <div>
-                    
+
                     <div class="radio">
                         @Html.RadioButtonFor(m => @Model.Input.Role, "Admin")&nbsp; Admin
                         <p style="text-indent: 24px; font-size: 1rem; font-weight: normal;">Provides full access.</p>
@@ -73,7 +73,7 @@
                         @Html.RadioButtonFor(m => @Model.Input.Role, "DealerNV")&nbsp;Unvalidated Dealer
                         <p style="text-indent: 24px; font-size: 1rem; font-weight: normal;">The level of access a dealer is given when they initially sign up. Once confirmed they can access the <b>My Sales</b> feature.</p>
                     </div>
-                    <div class="radio" >
+                    <div class="radio">
                         @Html.RadioButtonFor(m => @Model.Input.Role, "Customer", new { @checked= "true"}) &nbsp; Customer
                         <p style="text-indent: 24px; font-size: 1rem; font-weight: normal;">Access to store website only.</p>
                     </div>

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
 using TheCoopAntiques.Controllers;
 using TheCoopAntiques.Data;
 using TheCoopAntiques.Models.ViewModel;
@@ -18,14 +16,14 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
     {
         [BindProperty]
         public OrdersViewModel OrdersVM { get; set; }
-        
-        public OrdersController(ApplicationDbContext db) :base(db)
+
+        public OrdersController(ApplicationDbContext db) : base(db)
         {
             _db = db;
             OrdersVM = new OrdersViewModel()
             {
-                TransactionTypes = _db.TransactionTypes.Where(t=>t.Disabled==false).ToList(),
-                Dealers = _db.Dealers.Where(d=>d.Disabled==false).OrderBy(d => d.Name).ToList(),
+                TransactionTypes = _db.TransactionTypes.Where(t => t.Disabled == false).ToList(),
+                Dealers = _db.Dealers.Where(d => d.Disabled == false).OrderBy(d => d.Name).ToList(),
                 Orders = new Models.Orders(),
                 Items = _db.Items.Where(i => i.OrderId == OrdersVM.Orders.Id)
             };
@@ -42,7 +40,7 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
         public IActionResult Create()
         {
             ViewData["Status"] = StatusVM;
-            OrdersVM.Orders.DealerId =  _db.Dealers.First(d => d.Name == "None").Id;
+            OrdersVM.Orders.DealerId = _db.Dealers.First(d => d.Name == "None").Id;
             return View(OrdersVM);
         }
 
@@ -52,12 +50,12 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
         public async Task<IActionResult> CreatePOST()
         {
             if (!ModelState.IsValid) return View(OrdersVM);
-            OrdersVM.Orders.InvoiceNumber= OrdersVM.Orders.InvoiceNumber.PadLeft(8, '0');
+            OrdersVM.Orders.InvoiceNumber = OrdersVM.Orders.InvoiceNumber.PadLeft(8, '0');
             _db.Orders.Add(OrdersVM.Orders);
             await _db.SaveChangesAsync();
             if (OrdersVM.Orders.TransactionTypes.Name == "LAYAWAY")
             {
-                return RedirectToAction("Create","Layaways", new { id = OrdersVM.Orders.Id });
+                return RedirectToAction("Create", "Layaways", new { id = OrdersVM.Orders.Id });
             }
             else
             {
@@ -117,6 +115,5 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
             if (OrdersVM.Orders == null) return NotFound();
             return View(OrdersVM);
         }
-
     }
 }

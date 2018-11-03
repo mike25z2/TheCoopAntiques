@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 
 namespace TheCoopAntiques.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        [Display(Name="First Name")]
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
         [Display(Name = "Last Name")]
@@ -18,7 +14,7 @@ namespace TheCoopAntiques.Models
 
         [Required(AllowEmptyStrings = true)]
         [DisplayFormat(ConvertEmptyStringToNull = false)]
-        [Display(Name="Primary Dealer Id")]
+        [Display(Name = "Primary Dealer Id")]
         public int DealerId { get; set; }
 
         [ForeignKey("DealerId")]

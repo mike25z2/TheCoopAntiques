@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using TheCoopAntiques.Data;
 using TheCoopAntiques.Models;
 using TheCoopAntiques.Utility;
@@ -20,6 +18,7 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
         {
             _db = db;
         }
+
         public IActionResult Index()
         {
             return View(_db.DealerFeeTypes.ToList());
@@ -55,7 +54,7 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
         [HttpPost]
         [ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> PostEdit(int? id, DealerFeeTypes dealerFeeTypes )
+        public async Task<IActionResult> PostEdit(int? id, DealerFeeTypes dealerFeeTypes)
         {
             if (id != dealerFeeTypes.Id) return NotFound();
             if (!ModelState.IsValid) return View(dealerFeeTypes);

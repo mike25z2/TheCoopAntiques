@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Runtime.ExceptionServices;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 using TheCoopAntiques.Data;
-using TheCoopAntiques.Models;
 using TheCoopAntiques.Models.ViewModel;
 using TheCoopAntiques.Utility;
 
@@ -69,7 +63,7 @@ namespace TheCoopAntiques.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
 
             [Required]
-            [Display(Name="First Name")]
+            [Display(Name = "First Name")]
             public string FirstName { get; set; }
 
             [Required]
@@ -80,7 +74,6 @@ namespace TheCoopAntiques.Areas.Identity.Pages.Account
             public string PhoneNumber { get; set; }
 
             public string Role { get; set; }
-
         }
 
         public void OnGet(string returnUrl = null)
@@ -88,7 +81,7 @@ namespace TheCoopAntiques.Areas.Identity.Pages.Account
             ReturnUrl = returnUrl;
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null )
+        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
@@ -143,26 +136,31 @@ namespace TheCoopAntiques.Areas.Identity.Pages.Account
                         case "Admin":
                             await _userManager.AddToRoleAsync(userVM.ApplicationUsers, SD.AdminUser);
                             break;
+
                         case "Owner":
                             await _userManager.AddToRoleAsync(userVM.ApplicationUsers, SD.Owner);
                             break;
+
                         case "Volunteer":
                             await _userManager.AddToRoleAsync(userVM.ApplicationUsers, SD.Volunteer);
                             break;
+
                         case "DealerV":
                             await _userManager.AddToRoleAsync(userVM.ApplicationUsers, SD.DealerV);
                             break;
+
                         case "DealerNV":
                             await _userManager.AddToRoleAsync(userVM.ApplicationUsers, SD.DealerNV);
                             break;
+
                         default:
                             await _userManager.AddToRoleAsync(userVM.ApplicationUsers, SD.Customer);
                             break;
                     }
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(userVM.ApplicationUsers);
-                   
-                    return RedirectToAction("Index", "Users", new {area = "Admin"});
+
+                    return RedirectToAction("Index", "Users", new { area = "Admin" });
                 }
                 foreach (var error in result.Errors)
                 {

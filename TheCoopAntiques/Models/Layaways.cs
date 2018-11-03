@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
 
 namespace TheCoopAntiques.Models
 {
@@ -19,7 +14,7 @@ namespace TheCoopAntiques.Models
         [ForeignKey("OrderId")]
         public virtual Orders Orders { get; set; }
 
-        [Display(Name="Customer Name")]
+        [Display(Name = "Customer Name")]
         public string CustomerName { get; set; }
 
         [Display(Name = "Phone Number")]
@@ -28,8 +23,5 @@ namespace TheCoopAntiques.Models
         public decimal Deposit { get; set; }
 
         public string Notes { get; set; }
-
-
-
     }
 }

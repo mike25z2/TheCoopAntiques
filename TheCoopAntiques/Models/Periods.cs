@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace TheCoopAntiques.Models
 {
@@ -43,13 +41,13 @@ namespace TheCoopAntiques.Models
         [Display(Name = "End Date")]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime EndDate { get; set; }
-        
-        [Display(Name="Period Name")]
+
+        [Display(Name = "Period Name")]
         public virtual string Name => $"{Month} {YearInt.ToString()}";
 
         public virtual string NumericPeriod => YearInt + MonthInt.ToString("00");
 
-        [Display(Name="Month Number")]
+        [Display(Name = "Month Number")]
         [DisplayFormat(DataFormatString = "{0:00}")]
         public int MonthInt { get; set; }
 
@@ -67,7 +65,7 @@ namespace TheCoopAntiques.Models
                 return String.Empty;
             }
         }
-        
+
         [Display(Name = "Year")]
         public int YearInt { get; set; }
 

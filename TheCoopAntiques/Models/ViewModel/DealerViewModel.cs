@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace TheCoopAntiques.Models.ViewModel
 {
@@ -9,5 +6,6 @@ namespace TheCoopAntiques.Models.ViewModel
     {
         public Dealers Dealers { get; set; }
         public IEnumerable<DealerFees> DealerFees { get; set; }
+        public IEnumerable<DealerPayments> DealerPayments { get; set; }
     }
 }

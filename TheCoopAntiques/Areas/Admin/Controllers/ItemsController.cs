@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.Operations;
-using Microsoft.EntityFrameworkCore;
 using TheCoopAntiques.Data;
 using TheCoopAntiques.Models;
 using TheCoopAntiques.Models.ViewModel;
@@ -30,7 +26,7 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
             _db = db;
             ItemsVM = new ItemsViewModel()
             {
-                Dealers = _db.Dealers.Where(d => d.Disabled==false).Where(d=> d.Id !=6).OrderBy(d=>d.Name).ToList(),
+                Dealers = _db.Dealers.Where(d => d.Disabled == false).Where(d => d.Id != 6).OrderBy(d => d.Name).ToList(),
                 Items = new Models.Items()
             };
             OrdersVM = new OrdersViewModel()
@@ -38,7 +34,7 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
                 TransactionTypes = _db.TransactionTypes.Where(t => t.Disabled == false).ToList(),
                 Dealers = _db.Dealers.Where(d => d.Disabled == false).OrderBy(d => d.Name).ToList(),
                 Orders = new Models.Orders(),
-                Items = _db.Items.Where(i => i.OrderId == OrdersVM.Orders.Id).Include(i=>i.Dealers)
+                Items = _db.Items.Where(i => i.OrderId == OrdersVM.Orders.Id).Include(i => i.Dealers)
             };
         }
 
@@ -53,8 +49,8 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
         {
             Orders GetOrder = _db.Orders.Single(o => o.Id == orderId);
             if (GetOrder == null) return NotFound();
-            ViewBag.Order= GetOrder;
-            OrdersVM.Orders =  await _db.Orders.Include(m => m.TransactionTypes).Include(m => m.Dealers)
+            ViewBag.Order = GetOrder;
+            OrdersVM.Orders = await _db.Orders.Include(m => m.TransactionTypes).Include(m => m.Dealers)
                 .SingleOrDefaultAsync(m => m.Id == orderId);
             ViewBag.OrdersVM = OrdersVM;
             return View(ItemsVM);
@@ -70,7 +66,7 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
             _db.Items.Add(ItemsVM.Items);
             await _db.SaveChangesAsync();
 
-            return RedirectToAction("Create", "Items", new {orderId});
+            return RedirectToAction("Create", "Items", new { orderId });
         }
 
         //GET EDIT
@@ -102,7 +98,7 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
             itemFromDb.TaxExempt = ItemsVM.Items.TaxExempt;
             await _db.SaveChangesAsync();
 
-            return RedirectToAction("Edit", "Orders", new {id = orderId});
+            return RedirectToAction("Edit", "Orders", new { id = orderId });
         }
 
         //GET DELETE
@@ -117,6 +113,5 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
             if (controllerId == "Orders") return RedirectToAction(viewId, controllerId, new { id = items.OrderId });
             return RedirectToAction(viewId, controllerId, new { orderId = items.OrderId });
         }
-        
     }
 }

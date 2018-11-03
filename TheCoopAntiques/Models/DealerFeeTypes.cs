@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace TheCoopAntiques.Models
 {
@@ -14,7 +10,7 @@ namespace TheCoopAntiques.Models
         [Required]
         public string Name { get; set; }
 
-        [Display(Name="Included")]
+        [Display(Name = "Included")]
         public bool IsDeduction { get; set; }
 
         public bool Disabled { get; set; }

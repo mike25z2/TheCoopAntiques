@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using TheCoopAntiques.Data;
 using TheCoopAntiques.Models;
 using TheCoopAntiques.Utility;
@@ -42,7 +40,6 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
             _db.Add(transactionTypes);
             await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-
         }
 
         // GET EDIT
@@ -64,7 +61,6 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
             _db.Update(transactionTypes);
             await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-
         }
 
         // GET DETAILS

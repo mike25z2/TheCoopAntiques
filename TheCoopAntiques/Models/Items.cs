@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace TheCoopAntiques.Models
 {
@@ -19,11 +16,11 @@ namespace TheCoopAntiques.Models
         [Required]
         public decimal Amount { get; set; }
 
-        [Display(Name="Tax Exempt")]
+        [Display(Name = "Tax Exempt")]
         public bool TaxExempt { get; set; }
 
         [Required]
-        [Display(Name="Dealer")]
+        [Display(Name = "Dealer")]
         public int DealerId { get; set; }
 
         [ForeignKey("DealerId")]

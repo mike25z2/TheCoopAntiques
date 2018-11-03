@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace TheCoopAntiques.Models
 {
@@ -20,7 +16,7 @@ namespace TheCoopAntiques.Models
 
         [Required]
         public decimal Amount { get; set; }
-        
+
         [Display(Name = "Transaction Type")]
         public int TransactionTypeId { get; set; }
 

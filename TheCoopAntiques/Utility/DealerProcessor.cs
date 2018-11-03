@@ -1,10 +1,7 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Policy;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity.UI.Pages.Internal.Account;
-using Microsoft.EntityFrameworkCore;
 using TheCoopAntiques.Data;
 using TheCoopAntiques.Models;
 
@@ -12,8 +9,8 @@ namespace TheCoopAntiques.Utility
 {
     public class DealerProcessor
     {
-        private const decimal CREDIT_FEE = 0.03M;
-        private const decimal COOP_FEE = 0.10M;
+        private readonly decimal CREDIT_FEE;
+        private readonly decimal COOP_FEE;
         private readonly ApplicationDbContext _db;
         private readonly Periods _period;
         private bool _lock;
@@ -22,11 +19,15 @@ namespace TheCoopAntiques.Utility
         {
             _db = db;
             _period = period;
+            CREDIT_FEE = _db.CreditFees
+                .Where(c => c.StartDate <= DateTime.Today).First(c => c.EndDate >= DateTime.Today).Amount;
+            COOP_FEE = _db.CommissionRates
+                .Where(c => c.StartDate <= DateTime.Today).First(c => c.EndDate >= DateTime.Today).Amount;
         }
 
         public Dealers Dealer { get; set; }
 
-        public List<Items> Items => _db.Items.Include(i=> i.Orders).Include(i=> i.Orders.TransactionTypes)
+        public List<Items> Items => _db.Items.Include(i => i.Orders).Include(i => i.Orders.TransactionTypes)
                             .Where(i => i.DealerId == Dealer.Id)
                             .Where(i => i.Orders.OrderDate >= _period.StartDate)
                             .Where(i => i.Orders.OrderDate <= _period.EndDate).ToList();
@@ -34,9 +35,9 @@ namespace TheCoopAntiques.Utility
         public List<DealerFees> DealerFees => _db.DealerFees.Where(df => df.DealerId == Dealer.Id)
                                 .Where(df => df.PeriodId == _period.Id).ToList();
 
-        public List<Items> OnAccountItems => _db.Items.Include(i=> i.Orders).Include(i=> i.Orders.TransactionTypes)
-                                            .Where(i=> i.Orders.TransactionTypes.Name == "ON ACCOUNT")
-                                            .Where(i=> i.Orders.DealerId== Dealer.Id)
+        public List<Items> OnAccountItems => _db.Items.Include(i => i.Orders).Include(i => i.Orders.TransactionTypes)
+                                            .Where(i => i.Orders.TransactionTypes.Name == "ON ACCOUNT")
+                                            .Where(i => i.Orders.DealerId == Dealer.Id)
                                             .Where(i => i.Orders.OrderDate >= _period.StartDate)
                                             .Where(i => i.Orders.OrderDate <= _period.EndDate).ToList();
 
@@ -60,29 +61,28 @@ namespace TheCoopAntiques.Utility
                 {
                     return Items.Where(i => i.TaxExempt == false).Sum(i => i.Amount);
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
                     return 0M;
                 }
-
             }
         }
-        
+
         public decimal Tax
         {
             get
             {
                 try
                 {
-                    return Items.Where(i => !i.TaxExempt).Sum( i => (i.Amount*i.Orders.TaxRate));
+                    return Items.Where(i => !i.TaxExempt).Sum(i => (i.Amount * i.Orders.TaxRate));
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
                     return 0M;
                 }
             }
         }
-           
+
         public decimal CreditSales => Items.Where(i => i.Orders.TransactionTypes.Name == "CREDIT").Sum(i => i.Amount);
 
         public decimal CashSales => Items.Where(i => i.Orders.TransactionTypes.Name == "CASH").Sum(i => i.Amount);
@@ -120,9 +120,13 @@ namespace TheCoopAntiques.Utility
             }
         }
 
-        public decimal AmountToBePaid => SalesTotal - (SalesTotal * COOP_FEE) - (CreditSales * CREDIT_FEE)
+        public decimal AmountToBePaid => SalesTotal - Commission - CreditFee
                                          - (FeesTotal) - (OnAccountTotal);
 
-        public decimal Balance => _db.DealerPayments.Where(b=>b.PaymentDate<=DateTime.Today).Sum(b => b.Amount);
+        public decimal Balance => _db.DealerPayments.Where(b => b.EntryDate <= DateTime.Today).Where(b=>!b.Void).Sum(b => b.Amount);
+
+        public decimal Commission => SalesTotal * COOP_FEE;
+
+        public decimal CreditFee => CreditSales * CREDIT_FEE;
     }
 }

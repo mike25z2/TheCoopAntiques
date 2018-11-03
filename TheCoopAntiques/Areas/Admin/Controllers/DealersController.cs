@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Policy;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
 using TheCoopAntiques.Controllers;
 using TheCoopAntiques.Data;
 using TheCoopAntiques.Models;
-using TheCoopAntiques.Models.ViewModel;
 using TheCoopAntiques.Utility;
-
 
 namespace TheCoopAntiques.Areas.Admin.Controllers
 {
@@ -19,12 +13,13 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
     [Area("Admin")]
     public class DealersController : ApplicationController
     {
-        public DealersController(ApplicationDbContext db): base(db)
+        public DealersController(ApplicationDbContext db) : base(db)
         {
-           _db = db;
+            _db = db;
         }
 
         #region Dealer Info
+
         public IActionResult Index()
         {
             ViewData["Status"] = StatusVM;
@@ -46,7 +41,7 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
             dealers.Name = dealers.Name.ToUpper();
             _db.Add(dealers);
             await _db.SaveChangesAsync();
-            return RedirectToAction("Create", "DealerFees", new {dealerId = dealers.Id});
+            return RedirectToAction("Create", "DealerFees", new { dealerId = dealers.Id });
         }
 
         //GET EDIT
@@ -100,7 +95,6 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        #endregion
-
+        #endregion Dealer Info
     }
 }

@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
 using TheCoopAntiques.Controllers;
 using TheCoopAntiques.Data;
-using TheCoopAntiques.Models;
 using TheCoopAntiques.Models.ViewModel;
 using TheCoopAntiques.Utility;
 
@@ -20,7 +17,7 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
         [BindProperty]
         public LayawaysViewModel LayawaysVM { get; set; }
 
-        public LayawaysController(ApplicationDbContext db): base(db)
+        public LayawaysController(ApplicationDbContext db) : base(db)
         {
             _db = db;
             LayawaysVM = new LayawaysViewModel()

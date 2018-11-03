@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using TheCoopAntiques.Data;
 using TheCoopAntiques.Models.ViewModel;
 
@@ -22,5 +19,6 @@ namespace TheCoopAntiques.Controllers
                 CurrentPeriod = _db.Periods.FirstOrDefault(p => p.IsCurrent == true)
             };
         }
+        
     }
 }

@@ -6,13 +6,12 @@
 <br />
 <div class="row">
     <div class="col-7">
-        
     </div>
     <div class="col-3">
         <a class="btn btn-primary btn-block" asp-Controller="Dealers" asp-action="Index">Back to Dealer Maintenance</a>
     </div>
 </div>
-<br/>
+<br />
 <div class="row">
     <div class="col-7">
         <h2 class="text-info">Fees for @Model.Dealers.ToString()</h2>
@@ -25,4 +24,6 @@
 </div>
 
 <br />
-<partial name="_DealerFeesPartial" model="@Model" />
+<div class="row">
+    <partial name="_DealerFeesPartial" model="@Model" />
+</div>

@@ -19,9 +19,7 @@
             Exempt
         </th>
         <th>
-
         </th>
-
     </tr>
 
     @foreach (var item in @Model.Items)
@@ -66,13 +64,13 @@
             </td>
         </tr>
     }
-    
+
     <tr style="border-top: 2px solid; background-color: cornsilk; ">
         <td></td>
         <td class="text-right ">
             Sub Total:
         </td>
-        <td >
+        <td>
             @subTotal.ToString("c")
         </td>
         <td></td>
@@ -83,7 +81,7 @@
         <td class="text-right">
             Tax:
         </td>
-        <td >
+        <td>
             @tax.ToString("c")
         </td>
         <td>
@@ -105,4 +103,3 @@
         <td></td>
     </tr>
 </table>
-

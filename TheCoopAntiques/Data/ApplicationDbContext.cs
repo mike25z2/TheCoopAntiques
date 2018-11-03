@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TheCoopAntiques.Models;
 
@@ -26,5 +23,7 @@ namespace TheCoopAntiques.Data
         public DbSet<LayawayPayments> LayawayPayments { get; set; }
         public DbSet<Layaways> Layaways { get; set; }
         public DbSet<DealerPayments> DealerPayments { get; set; }
+        public DbSet<CreditFees> CreditFees { get; set; }
+        public DbSet<CommissionRates> CommissionRates { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int countLocked = 0;
 }
 <br />
 <div class="row">
@@ -14,6 +15,9 @@
     <div class="col-12">
         <table class="table table-striped border table-hover">
             <tr class="table-info">
+                <th>
+
+                </th>
                 <th style="width: 100px;">
                     Dealer ID
                 </th>
@@ -21,26 +25,47 @@
                     Sales
                 </th>
                 <th class="text-right">
-                    Dealer Fees
+                    Commission
                 </th>
                 <th class="text-right">
-                    Credit Card Sales
+                    Credit Card Fee
                 </th>
+                <th class="text-right">
+                    Dealer Fees
+                </th>
+
                 <th class="text-right">
                     On Account
                 </th>
                 <th class="text-right">
                     Period Balance
                 </th>
+                <th class="text-right">
+                    Previous Balance
+                </th>
+
             </tr>
             @foreach (var item in Model)
             {
             <tr>
                 <td>
+                    @if (item.Lock)
+                    {
+                        <i class="fas fa-lock" style="color:red;"></i>
+                        countLocked++;
+                    }
+                </td>
+                <td>
                     @Html.DisplayFor(t => item.Dealer.Name)
                 </td>
                 <td class="text-right">
                     @String.Format("{0:c}", item.SalesTotal)
+                </td>
+                <td class="text-right">
+                    @String.Format("{0:c}", item.Commission)
+                </td>
+                <td class="text-right">
+                    @String.Format("{0:c}", item.CreditFee)
                 </td>
                 <td class="text-right">
                     @if (item.Lock)
@@ -54,9 +79,7 @@
                         @String.Format("{0:c}", item.FeesTotal)
                     }
                 </td>
-                <td class="text-right">
-                    @String.Format("{0:c}", item.CreditSales)
-                </td>
+
                 <td class="text-right">
                     @String.Format("{0:c}", item.OnAccountTotal)
                 </td>
@@ -73,10 +96,71 @@
                         @String.Format("{0:c}", item.AmountToBePaid)
                     </td>
                 }
-                
+                    <td class="text-right">
+                        @String.Format("{0:c}", item.Balance)
+                    </td>
             </tr>
             }
         </table>
     </div>
-
 </div>
+<br />
+@if (countLocked > 0)
+{
+    <div class="alert alert-danger" role="alert">
+        <div class="row ">
+            <div class=" p-3 h5 col-12 alert alert-heading">
+                Warning: Some dealers will not process because they are locked.
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-1">
+                Selected:
+            </div>
+            <div class="col-1 ">
+                <b>@Model.Count(d => true)</b>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-1">
+                Locked:
+            </div>
+            <div class="col-1">
+                <b>@countLocked</b>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="alert alert-success" role="alert">
+        <div class="row ">
+            <div class=" p-3 h5 col-12 alert alert-heading">
+                No errors found.
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-1">
+                Selected:
+            </div>
+            <div class="col-1">
+                <b> @Model.Count(d => true)</b>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-1">
+                Locked:
+            </div>
+            <div class="col-1">
+                <b> @countLocked </b>
+            </div>
+        </div>
+    </div>
+}
+
+
+<script>
+
+</script>

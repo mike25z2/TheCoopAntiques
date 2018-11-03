@@ -36,7 +36,7 @@
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav" mr-auto>
                 @if (User.IsInRole(SD.AdminUser) ||
-                User.IsInRole(SD.Owner))
+              User.IsInRole(SD.Owner))
                 {
                     <div class="border"></div>
                     <li class="nav-item dropdown active">
@@ -45,8 +45,13 @@
                             Dealers
                         </a>
                         <div class="dropdown-menu" aria-labelledby="ndDealers">
-                            <a class="dropdown-item" asp-area="Admin" asp-controller="Dealers" asp-action="Create">Add Dealer</a>
-                            <a class="dropdown-item" asp-area="Admin" asp-controller="Dealers" asp-action="Index">View Dealers</a>
+                            <a class="dropdown-item" asp-area="Admin" asp-controller="Dealers" asp-action="Index">
+                                View Dealers
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" asp-area="Admin" asp-controller="Dealers" asp-action="Create">
+                                Add Dealer
+                            </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Dealer Fees</a>
                             <a class="dropdown-item" href="#">Dealer Balances</a>
@@ -71,28 +76,13 @@
                             <a class="dropdown-item" asp-area="Admin" asp-controller="Periods" asp-action="Index">Period Maintenance</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" asp-area="Admin" asp-controller="TransactionTypes" asp-action="Index">Transaction Types</a>
-                            <a class="dropdown-item" asp-area="Admin" asp-controller="TaxRates" asp-action="Index">Tax Rates</a>
                             <a class="dropdown-item" asp-area="Admin" asp-controller="DealerFeeTypes" asp-action="Index">Dealer Fee Types</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" asp-area="Admin" asp-controller="Newsletter" asp-action="Index">Edit Newsletter</a>
-                        </div>
-                    </li>
-                    <div class="border"></div>
-                }
-                @if (User.IsInRole(SD.AdminUser) ||
-                  User.IsInRole(SD.Owner) ||
-                  User.IsInRole(SD.Volunteer))
-                {
-                    <li class="nav-item dropdown active">
-                        <a class="nav-link dropdown-toggle" href="#" id="ndOrders" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="far fa-file-alt">&nbsp;</i>
-                            Orders
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="ndOrders">
-                            <a class="dropdown-item" asp-area="Admin" asp-controller="Orders" asp-action="Create">New Order</a>
-                            <a class="dropdown-item" asp-area="Admin" asp-controller="Orders" asp-action="Index">Order Search</a>
+                            <a class="dropdown-item" asp-area="Admin" asp-controller="TaxRates" asp-action="Index">Tax Rates</a>
+                            <a class="dropdown-item" asp-area="Admin" asp-controller="CreditFees" asp-action="Index">Credit Fees</a>
+                            <a class="dropdown-item" asp-area="Admin" asp-controller="CommissionRates" asp-action="Index">Commission Rates</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" asp-area="Admin" asp-controller="Layaways" asp-action="Index">Layaways</a>
+                            <a class="dropdown-item" asp-area="Admin" asp-controller="Newsletter" asp-action="Index">Edit Newsletter</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown active">
@@ -110,9 +100,28 @@
                     <div class="border"></div>
                 }
                 @if (User.IsInRole(SD.AdminUser) ||
-                 User.IsInRole(SD.Owner) ||
-                 User.IsInRole(SD.Volunteer) ||
-                 User.IsInRole(SD.DealerV))
+                User.IsInRole(SD.Owner) ||
+                User.IsInRole(SD.Volunteer))
+                {
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle" href="#" id="ndOrders" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="far fa-file-alt">&nbsp;</i>
+                            Orders
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="ndOrders">
+                            <a class="dropdown-item" asp-area="Admin" asp-controller="Orders" asp-action="Create">New Order</a>
+                            <a class="dropdown-item" asp-area="Admin" asp-controller="Orders" asp-action="Index">Order Search</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" asp-area="Admin" asp-controller="Layaways" asp-action="Index">Layaways</a>
+                        </div>
+                    </li>
+
+                    <div class="border"></div>
+                }
+                @if (User.IsInRole(SD.AdminUser) ||
+               User.IsInRole(SD.Owner) ||
+               User.IsInRole(SD.Volunteer) ||
+               User.IsInRole(SD.DealerV))
                 {
                     <li class="nav-item dropdown active">
                         <a class="nav-link dropdown-toggle" href="#" id="ndSales" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -127,10 +136,10 @@
                     <div class="border"></div>
                 }
                 @if (User.IsInRole(SD.AdminUser) ||
-                 User.IsInRole(SD.Owner) ||
-                 User.IsInRole(SD.Volunteer) ||
-                 User.IsInRole(SD.DealerV) ||
-                 User.IsInRole(SD.DealerNV))
+               User.IsInRole(SD.Owner) ||
+               User.IsInRole(SD.Volunteer) ||
+               User.IsInRole(SD.DealerV) ||
+               User.IsInRole(SD.DealerNV))
                 {
                     <li class="nav-item active">
                         <a class="nav-link" href="#">
@@ -146,19 +155,19 @@
         </div>
     </nav>
 
-<partial name="_CookieConsentPartial" />
-    
-    @if (User.IsInRole(SD.AdminUser) && StatusInfo !=null)
+    <partial name="_CookieConsentPartial" />
+
+    @if (User.IsInRole(SD.AdminUser) && StatusInfo != null)
     {
-        <partial name="_StatusPartialView.cshtml" model="StatusInfo"/>
+        <partial name="_StatusPartialView.cshtml" model="StatusInfo" />
     }
-<div class="container body-content">
-    @RenderBody()
-    <hr/>
-    <footer>
-        <p class="text-right" style="font-weight: bold; color: black">&copy; 2018 - The Coop Antiques</p>
-    </footer>
-</div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p class="text-right" style="font-weight: bold; color: black">&copy; 2018 - The Coop Antiques</p>
+        </footer>
+    </div>
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace TheCoopAntiques.Models
 {
@@ -20,9 +17,9 @@ namespace TheCoopAntiques.Models
         public virtual Dealers Dealers { get; set; }
 
         [Required]
-        [Display(Name = " Payment Date")]
+        [Display(Name = "Entry Date")]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
-        public DateTime PaymentDate { get; set; }
+        public DateTime EntryDate { get; set; }
 
         [Required]
         public string Description { get; set; }
@@ -31,7 +28,7 @@ namespace TheCoopAntiques.Models
 
         [DisplayFormat(DataFormatString = "{0:c}")]
         public decimal Amount { get; set; }
-        
+
         public bool Void { get; set; }
     }
 }

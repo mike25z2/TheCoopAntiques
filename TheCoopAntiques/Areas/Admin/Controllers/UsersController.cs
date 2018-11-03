@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.EntityFrameworkCore;
 using TheCoopAntiques.Data;
 using TheCoopAntiques.Models;
 using TheCoopAntiques.Models.ViewModel;
@@ -13,7 +11,7 @@ using TheCoopAntiques.Utility;
 
 namespace TheCoopAntiques.Areas.Admin.Controllers
 {
-    [Authorize(Roles=SD.AdminUser + "," + SD.Owner)]
+    [Authorize(Roles = SD.AdminUser + "," + SD.Owner)]
     [Area("Admin")]
     public class UsersController : Controller
     {
@@ -31,10 +29,10 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
                 Dealers = _db.Dealers.Where(d => d.Disabled == false).ToList()
             };
         }
-        
+
         public IActionResult Index()
         {
-            var applicationUsers = _db.ApplicationUser.Include(d=>d.Dealers).DefaultIfEmpty().ToList();
+            var applicationUsers = _db.ApplicationUser.Include(d => d.Dealers).DefaultIfEmpty().ToList();
             return View(applicationUsers);
         }
 
@@ -55,7 +53,7 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
         {
             if (id != ApplicationUserVM.ApplicationUsers.Id) return NotFound();
             if (!ModelState.IsValid) return View(ApplicationUserVM);
-            ApplicationUser userFromDb=
+            ApplicationUser userFromDb =
                 _db.ApplicationUser.Include(m => m.Dealers).FirstOrDefault(u => u.Id == id);
             if (userFromDb == null) return NotFound();
             userFromDb.FirstName = ApplicationUserVM.ApplicationUsers.FirstName;

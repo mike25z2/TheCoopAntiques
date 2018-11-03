@@ -5,7 +5,7 @@
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var DealersVM = (DealerViewModel)@ViewBag.DealersVM;
- }
+}
 <br />
 <div class="row">
     <div class="col-7">
@@ -17,7 +17,6 @@
 </div>
 <div class="row">
     <div class="col-7">
-        
     </div>
     <div class="col-3">
         <a class="btn btn-primary btn-block" asp-Controller="Dealers" asp-action="Index">Back to Dealer Maintenance</a>
@@ -55,5 +54,8 @@
         </div>
     </div>
 </form>
-<br/>
+<br />
 <partial name="_DealerFeesPartial" model="@DealersVM" />
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

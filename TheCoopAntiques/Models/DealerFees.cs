@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace TheCoopAntiques.Models
 {
@@ -17,11 +12,11 @@ namespace TheCoopAntiques.Models
         public int DealerId { get; set; }
 
         [ForeignKey("DealerId")]
-        [Display(Name="Dealer Id")]
+        [Display(Name = "Dealer Id")]
         public virtual Dealers Dealers { get; set; }
 
         [Required]
-        [Display(Name="Period")]
+        [Display(Name = "Period")]
         public int PeriodId { get; set; }
 
         [ForeignKey("PeriodId")]
@@ -30,7 +25,7 @@ namespace TheCoopAntiques.Models
         public decimal Amount { get; set; }
 
         [Required]
-        [Display(Name="Fee Type")]
+        [Display(Name = "Fee Type")]
         public int DealerFeeTypeId { get; set; }
 
         [ForeignKey("DealerFeeTypeId")]

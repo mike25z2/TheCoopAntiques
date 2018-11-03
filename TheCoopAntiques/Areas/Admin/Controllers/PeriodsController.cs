@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
 using TheCoopAntiques.Data;
 using TheCoopAntiques.Models;
 using TheCoopAntiques.Utility;
@@ -21,10 +19,11 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
         {
             _db = db;
         }
+
         public async Task<IActionResult> Index()
         {
             ViewBag.Count = _db.Periods.Count(p => p.IsCurrent == true);
-            return View(await _db.Periods.OrderBy(p=> p.NumericPeriod).ToListAsync());
+            return View(await _db.Periods.OrderBy(p => p.NumericPeriod).ToListAsync());
         }
 
         //GET CREATE
@@ -53,8 +52,8 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
         //GET SET PERIOD
         public async Task<IActionResult> SetPeriod(int? id)
         {
-            if(id==null) return RedirectToAction(nameof(Index));
-            var periodsList = await _db.Periods.Where(p=>p.IsCurrent==true).ToListAsync();
+            if (id == null) return RedirectToAction(nameof(Index));
+            var periodsList = await _db.Periods.Where(p => p.IsCurrent == true).ToListAsync();
             if (periodsList != null && periodsList.Count > 0)
             {
                 foreach (Periods p in periodsList)

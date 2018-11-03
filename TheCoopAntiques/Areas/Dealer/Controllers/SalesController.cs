@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
 using TheCoopAntiques.Data;
-using TheCoopAntiques.Extensions;
-using TheCoopAntiques.Models;
-using Microsoft.EntityFrameworkCore;
-using TheCoopAntiques.Models.ViewModel;
 using TheCoopAntiques.Utility;
 
 namespace TheCoopAntiques.Areas.Admin.Controllers
@@ -41,5 +34,3 @@ namespace TheCoopAntiques.Areas.Admin.Controllers
         }
     }
 }
-
-
